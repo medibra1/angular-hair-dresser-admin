@@ -1,0 +1,23 @@
+# Use mod_rewrite to enable URL rewriting
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # If a directory or a file exists, use it directly
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # Otherwise, forward the request to index.html
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Optionally, specify your default index file
+DirectoryIndex index.html
+
+# Set the environment variable "APP_ENV" to "production"
+SetEnv APP_ENV local
+
+# Caching of static assets (optional but recommended for performance)
+<FilesMatch "\.(html|css|js|png|jpg|jpeg|gif|ico|svg|ttf|woff|woff2|eot|otf)$">
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+</FilesMatch>

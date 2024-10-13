@@ -1,0 +1,19 @@
+@media (max-width: 1199.98px) {
+  .layout-menu {
+    transition: transform 400ms ease-in-out;
+  }
+  .display-mobile-menu {
+    transform: translate3d(0, 0, 0) !important;
+  }
+  .block {
+    display: block !important;
+  }
+}
+
+
+
+
+
+
+
+

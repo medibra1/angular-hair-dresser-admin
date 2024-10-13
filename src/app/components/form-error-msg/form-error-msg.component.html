@@ -1,0 +1,12 @@
+<ng-container *ngIf="control">
+    <div class="text-danger mt-2 mb-15" *ngIf="control.dirty || control.touched && !control.valid">
+        <ng-container *ngFor="let error of error_messages">
+          <small 
+          *ngIf="control.hasError(error.type)" 
+          class="d-block">
+            {{error.type == 'minlength' ? control.errors['minlength'].requiredLength : '' }} 
+            {{error.type == 'maxlength' ? control.errors['maxlength'].requiredLength : '' }} 
+            {{error.message}}</small>
+        </ng-container>
+    </div>
+  </ng-container>

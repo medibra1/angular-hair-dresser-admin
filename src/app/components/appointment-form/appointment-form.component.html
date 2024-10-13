@@ -1,0 +1,90 @@
+<!-- <section class="booking-section section-padding" id="booking-section"
+  [style.backgroundImage]="'url(assets/images/chair.jpg)'">
+  <div class="container">
+    <div class="row"> 
+        -->
+
+      <div class="col-lg-11 col-12 mx-auto mb-3">
+        <form [formGroup]="appointmentForm" (ngSubmit)="bookAppointment()" class="custom-form booking-form" role="form" autocomplete="on">
+
+          <div *ngIf="success" class="alert alert-success mt-3">{{ success }}</div>
+          <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+
+          <div class="booking-form-body">
+            <div class="row">
+
+              <div class="col-lg-6 col-12">
+                <input type="text" formControlName="name" id="bb-name" class="form-control mb-0"
+                  placeholder="Full name">
+                <div class="mb-2">
+                  <app-form-error-msg [control]="appointmentForm.controls['name']"></app-form-error-msg>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <input type="tel" class="form-control mb-0" formControlName="phone" placeholder="Mobile 010-020-0340">
+                <div class="mb-2">
+                  <app-form-error-msg [control]="appointmentForm.controls['phone']"></app-form-error-msg>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <input type="email" class="form-control mb-0" formControlName="email" placeholder="Email Address">
+                <div class="mb-2">
+                  <app-form-error-msg [control]="appointmentForm.controls['email']"></app-form-error-msg>
+                </div>
+              </div>
+
+              <!-- <div class="col-lg-6 col-12 mb-0">
+                                <input class="form-control" type="time" name="bb-time" value="18:30" />
+                            </div> -->
+
+              <div class="col-lg-6 col-12">
+                <select class="form-select form-control mb-0" name="bb-branch" id="bb-branch"
+                  aria-label="Default select example" formControlName="service_id">
+                  <option selected="" value="{{null}}">Select Service</option>
+                  <option *ngFor="let service of services" [value]="service.id">{{service.name}}</option>
+                </select>
+                <div class="mb-2">
+                  <app-form-error-msg [control]="appointmentForm.controls['service_id']"></app-form-error-msg>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <input type="date" id="bb-date" [min]="minDate" formControlName="date" class="form-control mb-0"
+                  placeholder="Date" (change)="onDateChange($event)">
+                <div class="mb-2">
+                  <app-form-error-msg [control]="appointmentForm.controls['date']"></app-form-error-msg>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="mb-2" *ngIf="appointmentForm.controls['date'].valid">
+                <small class="text-danger" *ngIf="appointmentForm.controls['time'].hasError('required')">Please choose a time</small>
+            </div>
+            <div class="time-slots ">
+              <button *ngFor="let slot of availableSlots" type="button" class="btn btn-outline-secondary me-1 mb-1"
+                (click)="selectSlot(slot)" [ngClass]="{'selected-slot': selectedSlot === slot}">
+                {{ slot }}
+              </button>
+            </div>
+
+            <div>
+              <textarea formControlName="message" rows="1" class="form-control" id="bb-message"
+                placeholder="Message (Optional)"></textarea>
+              <div class="mb-2">
+                <app-form-error-msg [control]="appointmentForm.controls['message']"></app-form-error-msg>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-10 col-8 mx-auto">
+              <button type="submit" class="btn btn-primary form-control">Submit</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    <!-- </div>
+  </div>
+</section> -->

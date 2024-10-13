@@ -1,0 +1,702 @@
+<!-- <div class="alert alert-success alert-dismissible fade show" role="alert">
+    seetings edited/created successfully
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="card mb-2">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="">Site Information</h5>
+
+        <h5><a class="text-secondary" href=""><i class="bx bx-plus ms-2" style="font-size: 1.5rem;"></i>Add site info</a></h5>
+
+        <h5><a class="text-secondary" href=""><i class="bx bx-edit-alt ms-2" style="font-size: 1.5rem;"></i>Edit site info ?</a>
+        </h5>
+
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="mb-0">Main Informations</h5>
+    </div>
+    <div class="card-body">
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="site_name">Site Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="site_name" id="site_name" value=""   />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="site_url">Site Url</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="site_url" id="site_url" value=""   />
+            </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-3 gap-md-5">
+            <label class="col-sm-2" for="picture">Logo</label>
+            <img src="" alt=""
+                style="width:70px; height: 70px; border-radius: 10px; padding-top: 4px; background-color: #d4d3d3;">
+        </div>
+    </div>
+</div>
+
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h5>Contact Details</h5>
+    </div>
+    <div class="card-body">
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="email">Contact Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" name="email" id="email" value=""   />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="email_smtp">Professional Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" name="email_smtp" id="email_smtp" value=""   />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="phone1">Phone 1</label>
+            <div class="col-sm-10">
+                <input type="tel" class="form-control" name="phone1" id="phone1" value=""   />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="phone2">phone 2</label>
+            <div class="col-sm-10">
+                <input type="tel" class="form-control" name="phone2" id="phone2" value=""   />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="map_url">Url map</label>
+            <div class="col-sm-10">
+                <textarea id="map_url" name="map_url" class="form-control"  ></textarea>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="address">Adress 1</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="address" id="address" value=""   />
+            </div>
+        </div>
+
+        <div class="row">
+            <label class="col-sm-2 col-form-label" for="address">Adress 2</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="address" id="address" value=""   />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h5>Payment Information</h5>
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="currency">currency</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="currency" id="currency" value=""   />
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label" for="deposit">Delivery charge</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" name="deposit" id="deposit" value="" min="0"   />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h5>Social Media</h5>
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="social_media1">Facebook</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="social_media1" id="social_media1" value=""   />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="social_media2">Instagram</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="social_media2" id="social_media2" value=""   />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="social_media3">Youtube</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="social_media3" id="social_media3" value=""   />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="social_media4">Tiktok</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="social_media4" id="social_media4" value=""   />
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label" for="social_media5">Twitter</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="social_media5" id="social_media5" value=""   />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h5>Other information</h5>
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="slogan">Slogan</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="slogan" id="slogan" value=""   />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="schedule">Opening Time</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="schedule" id="schedule" value=""   />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="schedule">Closing Time</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="schedule" id="schedule" value=""   />
+            </div>
+        </div>
+        <div class="row justify-content-end  mt-3">
+            <div class="col-sm-10">
+                <a class="btn btn-primary mb-2 mb-sm-0 me-2" href="">Edit</a>
+                <button class="btn btn-danger deleteKitten mb-2 mb-sm-0" type="button">Delete</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div *ngIf="settings">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="successMessage">
+        {{ successMessage }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  
+    <div class="card mb-2">
+        <div class="card-header d-flex align-items-center justify-content-between">
+            <h5 class="">Site Information</h5>
+            <div>
+                <a class="text-secondary" (click)="toggleEditMode()" *ngIf="!editMode">
+                    <i class="bx bx-edit-alt ms-2" style="font-size: 1.5rem;"></i>Edit site info
+                </a>
+            </div>
+        </div>
+    </div>
+  
+    <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
+        <div class="card mb-3">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Main Informations</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="site_name">Site Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="site_name" formControlName="name" [readonly]="!editMode"/>
+                        <app-form-error-msg [control]="settingsForm.controls['name']"></app-form-error-msg>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="site_url">Site Url</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="site_url" formControlName="site_url" [readonly]="!editMode"/>
+                        <app-form-error-msg [control]="settingsForm.controls['site_url']"></app-form-error-msg>
+                    </div>
+                </div>
+  
+                <div class="d-flex flex-wrap gap-3 gap-md-5">
+                    <input type="file" class="form-control" id="logo" *ngIf="editMode" (change)="onFileSelected($event)" />
+                    <label class="col-sm-2" for="picture">Logo</label>
+                    <img [src]="logoPreview ? logoPreview : settings.logo" alt="logo" style="width:70px; height: 70px; border-radius: 10px; padding-top: 4px; background-color: #d4d3d3;">
+                </div>
+            </div>
+        </div>
+  
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>Contact Details</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="email">Contact Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email" formControlName="email" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="email_smtp">Professional Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email_smtp" formControlName="email_smtp" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="phone1">Phone 1</label>
+                    <div class="col-sm-10">
+                        <input type="tel" class="form-control" id="phone1" formControlName="phone1" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="phone2">Phone 2</label>
+                    <div class="col-sm-10">
+                        <input type="tel" class="form-control" id="phone2" formControlName="phone2" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="map">Url map</label>
+                    <div class="col-sm-10">
+                        <textarea id="map" formControlName="map" class="form-control" [readonly]="!editMode"></textarea>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="address1">Address 1</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="address1" formControlName="address1" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="address2">Address 2</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="address2" formControlName="address2" [readonly]="!editMode"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>Payment Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="currency">Currency</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="currency" formControlName="currency" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="delivery_charge">Delivery charge</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="delivery_charge" formControlName="delivery_charge" min="0" [readonly]="!editMode"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>Social Media</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="facebook">Facebook</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="facebook" formControlName="facebook" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="instagram">Instagram</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="instagram" formControlName="instagram" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="youtube">Youtube</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="youtube" formControlName="youtube" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="tiktok">Tiktok</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="tiktok" formControlName="tiktok" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="twitter">Twitter</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="twitter" formControlName="twitter" [readonly]="!editMode"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>Other Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="slogan">Slogan</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="slogan" formControlName="slogan" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="opening_time">Opening Time</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="opening_time" formControlName="opening_time" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="closing_time">Closing Time</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="closing_time" formControlName="closing_time" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="about">About</label>
+                    <div class="col-sm-10">
+                        <textarea id="about" formControlName="about" class="form-control" [readonly]="!editMode"></textarea>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="language">Language</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="language" formControlName="language" [readonly]="!editMode"/>
+                    </div>
+                </div>
+  
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="theme">Theme</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="theme" formControlName="theme" [readonly]="!editMode"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>API Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="api_url">API URL</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="api_url" formControlName="api_url" [readonly]="!editMode"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+        <div class="row justify-content-end mt-3" *ngIf="editMode">
+            <div class="col-sm-10">
+                <button class="btn btn-primary mb-2 mb-sm-0 me-2" type="submit" [disabled]="settingsForm.invalid">Save</button>
+                <button class="btn btn-danger mb-2 mb-sm-0" (click)="toggleEditMode()">Cancel</button>
+            </div>
+        </div>
+    </form>
+  </div> -->
+  
+
+  <div class="container">
+    <!-- Alert for success message -->
+    <div class="alert alert-dismissible d-flex align-items-center" [ngClass]="{'alert-success': successMessage, 'alert-danger': errorMessage.length > 0}" role="alert" *ngIf="successMessage || errorMessage.length > 0">
+      <svg *ngIf="errorMessage.length > 0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+      </svg>
+      <svg  *ngIf="successMessage" xmlns="http://www.w3.org/2000/svg"  width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+      </svg>
+      <div>
+        <ng-container *ngIf="successMessage">
+          {{ successMessage }}
+        </ng-container>
+          <ul *ngIf="errorMessage.length > 0">
+            <li  *ngFor="let errMsg of errorMessage">{{errMsg}}</li>
+          </ul>
+      </div>
+      <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+    </div>
+      
+    <!-- Card for site information with edit toggle -->
+    <div class="card mb-2">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5>Site Information</h5>
+        <div>
+          <a class="text-secondary" (click)="toggleEditMode()" *ngIf="!editMode">
+            <i class="bx bx-edit-alt ms-2" style="font-size: 1.5rem;"></i>{{!isObjectExist(settings) ? 'Add site info' : 'Edit site info'}}
+          </a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Form for site settings -->
+    <!-- <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()" *ngIf="(settings == {} && editMode) || settings != {}"> -->
+    <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()" *ngIf="(isObjectExist(settings) || editMode)">
+      <!-- Main Information -->
+      <div class="card mb-3">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h5 class="mb-0">Main Informations</h5>
+        </div>
+        <div class="card-body">
+          <!-- Site Name -->
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="site_name">Site Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="site_name" formControlName="name" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['name']"></app-form-error-msg>
+            </div>
+          </div>
+  
+          <!-- Site URL -->
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="site_url">Site URL</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="site_url" formControlName="site_url" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['site_url']"></app-form-error-msg>
+            </div>
+          </div>
+  
+          <!-- Logo Upload -->
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="logo">Logo</label>
+            <div class="col-sm-10 d-flex align-items-center">
+              <input type="file" class="form-control" id="logo" *ngIf="editMode" (change)="onFileSelected($event)" />
+              <img [src]="logoPreview ? logoPreview : settings?.logo" *ngIf="logoPreview || settings?.logo" alt="YGB logo" class="ms-3" style="width: 70px; height: 70px; border-radius: 10px; background-color: #d4d3d3;">
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Contact Details -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5>Contact Details</h5>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="email">Contact Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="email" formControlName="email" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['email']"></app-form-error-msg>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="email_smtp">Professional Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="email_smtp" formControlName="email_smtp" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['email_smtp']"></app-form-error-msg>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="phone1">Phone 1</label>
+            <div class="col-sm-10">
+              <input type="tel" class="form-control" id="phone1" formControlName="phone1" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['phone1']"></app-form-error-msg>
+            </div>
+          </div>
+          <!-- <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="phone2">Phone 2</label>
+            <div class="col-sm-10">
+              <input type="tel" class="form-control" id="phone2" formControlName="phone2" [readonly]="!editMode" />
+            </div>
+          </div> -->
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="map">Url Map</label>
+            <div class="col-sm-10">
+              <textarea id="map" formControlName="map" class="form-control" [readonly]="!editMode"></textarea>
+              <!-- <app-form-error-msg [control]="settingsForm.controls['map']"></app-form-error-msg> -->
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="address1">Address 1</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="address1" formControlName="address1" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['address1']"></app-form-error-msg>
+            </div>
+          </div>
+          <!-- <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="address2">Address 2</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="address2" formControlName="address2" [readonly]="!editMode" />
+            </div>
+          </div> -->
+        </div>
+      </div>
+  
+      <!-- Payment Information -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5>Payment Information</h5>
+        </div>
+        <div class="card-body">
+          <!-- <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="currency">Currency</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="currency" formControlName="currency" [readonly]="!editMode" />
+            </div>
+          </div> -->
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="delivery_charge">Delivery Charge</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="delivery_charge" formControlName="delivery_charge" min="0" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['delivery_charge']"></app-form-error-msg>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Social Media -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5>Social Media</h5>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="facebook">Facebook</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="facebook" formControlName="facebook" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['facebook']"></app-form-error-msg>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="instagram">Instagram</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="instagram" formControlName="instagram" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['instagram']"></app-form-error-msg>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="youtube">Youtube</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="youtube" formControlName="youtube" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['youtube']"></app-form-error-msg>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="tiktok">Tiktok</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="tiktok" formControlName="tiktok" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['tiktok']"></app-form-error-msg>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="twitter">Twitter</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="twitter" formControlName="twitter" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['twitter']"></app-form-error-msg>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Other Information -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5>Other Information</h5>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="slogan">Slogan</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="slogan" formControlName="slogan" [readonly]="!editMode" />
+              <app-form-error-msg [control]="settingsForm.controls['slogan']"></app-form-error-msg>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="opening_time">Opening Time</label>
+            <div class="col-sm-10">
+              <!-- <input type="text" class="form-control" id="opening_time" formControlName="opening_time" [readonly]="!editMode" /> -->
+                <input class="form-control" type="time"  id="opening_time" formControlName="opening_time" [readonly]="!editMode"/>
+                <app-form-error-msg [control]="settingsForm.controls['opening_time']"></app-form-error-msg>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="closing_time">Closing Time</label>
+            <div class="col-sm-10">
+              <!-- <input type="text" class="form-control" id="closing_time" formControlName="closing_time" [readonly]="!editMode" /> -->
+              <input class="form-control" type="time"  id="closing_time" formControlName="closing_time" [readonly]="!editMode"/>
+              <app-form-error-msg [control]="settingsForm.controls['closing_time']"></app-form-error-msg>
+            </div>
+          </div>
+          <!-- <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="about">About</label>
+            <div class="col-sm-10">
+              <textarea id="about" formControlName="about" class="form-control" [readonly]="!editMode"></textarea>
+            </div>
+          </div> -->
+          <!-- <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="language">Language</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="language" formControlName="language" [readonly]="!editMode" />
+            </div>
+          </div> -->
+          <!-- <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="theme">Theme</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="theme" formControlName="theme" [readonly]="!editMode" />
+            </div>
+          </div> -->
+        </div>
+      </div>
+  
+      <!-- API Information -->
+      <!-- <div class="card mb-3">
+        <div class="card-header">
+          <h5>API Information</h5>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="api_url">API URL</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="api_url" formControlName="api_url" [readonly]="!editMode" />
+            </div>
+          </div>
+        </div>
+      </div> -->
+  
+      <!-- Save and Cancel buttons -->
+      <div class="row justify-content-end mt-3" *ngIf="editMode">
+        <div class="col-sm-10">
+          <!-- <button class="btn btn-primary mb-2 mb-sm-0 me-2" type="submit" [disabled]="settingsForm.invalid">Save</button> -->
+          <button class="btn btn-primary mb-2 mb-sm-0 me-2" type="submit">Save</button>
+          <button class="btn btn-danger mb-2 mb-sm-0" (click)="toggleEditMode()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

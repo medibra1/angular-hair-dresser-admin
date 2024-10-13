@@ -1,0 +1,56 @@
+.spinner-border {
+    display: block;
+    margin: 20px auto;
+  }
+  
+  .alert {
+    margin-top: 20px;
+  }
+
+  /* appointments.component.css */
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* .filters input[type="text"],
+.filters input[type="email"],
+.filters input[type="date"],
+.filters input[type="number"] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.filters button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  background-color: #0056b3;
+}
+
+.appointment-card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-card h2 {
+  margin-top: 0;
+}
+
+.appointment-card p {
+  margin: 0.5rem 0;
+} */

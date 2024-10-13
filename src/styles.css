@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+input.ng-touched.ng-invalid,
+textarea.ng-touched.ng-invalid,
+select.ng-touched.ng-invalid {
+  border: 2px solid red !important;
+  outline: none;
+}

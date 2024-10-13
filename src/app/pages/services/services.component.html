@@ -1,0 +1,142 @@
+    <!-- Alert for success message -->
+    <div class="alert alert-dismissible d-flex align-items-center" [ngClass]="{'alert-success': successMessage, 'alert-danger': errorMessage.length > 0}" role="alert" *ngIf="successMessage || errorMessage.length > 0">
+        <svg *ngIf="errorMessage.length > 0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </svg>
+        <svg  *ngIf="successMessage" xmlns="http://www.w3.org/2000/svg"  width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </svg>
+        <div>
+          <ng-container *ngIf="successMessage">
+            {{ successMessage }}
+          </ng-container>
+            <ul *ngIf="errorMessage.length > 0">
+              <li  *ngFor="let errMsg of errorMessage">{{errMsg}}</li>
+            </ul>
+        </div>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+      </div>
+
+<div class="card mb-3">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h5>Services</h5>
+        <div>
+            <a class="text-secondary" (click)="toggleEditMode()" *ngIf="!editMode">
+                <i class="bx bx-edit-alt ms-2" style="font-size: 1.5rem;"></i>Add
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Promo Price</th>
+                        <!-- <th>Description</th> -->
+                        <th>Status</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let service of servicesList">
+                        <td>{{ service.name }}</td>
+                        <td>{{ service.price }}</td>
+                        <td>{{ service.promo_price }}</td>
+                        <!-- <td>{{ setting.description }}</td> -->
+                        <td>{{ service.status == 1 ? 'Active' : 'Inactive' }}</td>
+                        <td>
+                            <img [src]="service?.image" alt="" *ngIf="service.type == 1" width="50">
+                        </td>
+                        <td>
+                            <button class="btn btn-warning btn-sm me-lg-2 mb-lg-0 mb-1"
+                                (click)="toggleEditMode(service)">Edit</button>
+                            <button class="btn btn-danger btn-sm" (click)="deleteService(service.id)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- <h2>Settings</h2>
+    <button class="btn btn-primary mb-3" (click)="toggleEditMode()">Add New Setting</button>
+    <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div> -->
+<div class="card" *ngIf="editMode">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h5>Service Form: {{  formMode == 'Add' ? 'Add Serive' : 'Edit Service' }}</h5>
+        <div>
+            <a class="text-secondary" (click)="hidewForm()" *ngIf="editMode">
+                <i class="bx bx-low-vision ms-2" style="font-size: 1.5rem;"></i>Hide
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="serviceForm" (ngSubmit)="saveService()" class="mt-4">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input id="name" class="form-control" formControlName="name">
+                <div *ngIf="serviceForm.get('name')?.errors?.['required']" class="text-danger">
+                    Name is required.
+                </div>
+                <div *ngIf="serviceForm.get('name')?.errors?.['maxlength']" class="text-danger">
+                    Name cannot exceed 255 characters.
+                </div>
+            </div>
+        
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input id="price" class="form-control" formControlName="price" type="number">
+                <div *ngIf="serviceForm.get('price')?.errors?.['pattern']" class="text-danger">
+                    Invalid price format.
+                </div>
+            </div>
+        
+            <div class="mb-3">
+                <label for="promo_price" class="form-label">Promo Price</label>
+                <input id="promo_price" class="form-control" formControlName="promo_price" type="number">
+                <div *ngIf="serviceForm.get('promo_price')?.errors?.['pattern']" class="text-danger">
+                    Invalid promo price format.
+                </div>
+            </div>
+        
+            <!-- <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" class="form-control" formControlName="description"></textarea>
+            </div> -->
+        
+            <div class="form-check mb-3">
+                <input id="status" class="form-check-input" type="checkbox" formControlName="status">
+                <label for="status" class="form-check-label">Active</label>
+            </div>
+        
+            <div class="form-check mb-3" [ngClass]="{'d-none': formMode == 'Edit' && serviceForm.get('type').value == 1}">
+                <input id="type" class="form-check-input" type="checkbox" formControlName="type">
+                <label for="type" class="form-check-label">Main (for adding picture)</label>
+            </div>
+
+            <!-- <div class="mb-3">
+                <label for="type" class="form-label">Type</label>
+                <select class="form-select" formControlName="type">
+                    <option value="1">Main (for adding picture)</option>
+                    <option value="2">Secondary</option>
+                  </select> 
+            </div> -->
+        
+            <div class="mb-3" *ngIf="serviceForm.get('type').value == 1">
+                <label for="image" class="form-label">Image</label>
+                <input id="image" class="form-control" type="file" (change)="onFileSelected($event)">
+                <img [src]="logoPreview || serviceForm.get('image').value" alt="serve logo" class="mt-3" style="width: 70px; height: 70px; border-radius: 10px; background-color: #d4d3d3;">
+                <div *ngIf="selectedFile && serviceForm.get('image')?.errors?.['invalid']" class="text-danger">
+                    Invalid image format.
+                </div>
+            </div>
+        
+            <button type="submit" class="btn btn-primary" [disabled]="!serviceForm.valid">Save</button>
+        </form>
+    </div>
+</div>
