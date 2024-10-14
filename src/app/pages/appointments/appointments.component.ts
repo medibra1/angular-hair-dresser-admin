@@ -255,12 +255,12 @@ export class AppointmentsComponent {
   }
 
   pageChanged(event: number): void {
-    console.log('EVENT: ', event);
-    console.log('page size: ', this.pageSize);
-    console.log('currentpage: ', this.currentPage);
+    // console.log('EVENT: ', event);
+    // console.log('page size: ', this.pageSize);
+    // console.log('currentpage: ', this.currentPage);
+    // console.log('collection size: ', this.filteredAppointments.length);
     this.page = event;
     console.log('this Page: ', this.page);
-    console.log('collection size: ', this.filteredAppointments.length);
   }
 
   addAppointment(): void {

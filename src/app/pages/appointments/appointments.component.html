@@ -92,6 +92,7 @@
                   <th (click)="setSortColumn('time')">Time</th>
                   <th (click)="setSortColumn('service')">Service</th>
                   <th (click)="setSortColumn('status')">Status</th> -->
+                  <th>N°</th>
                   <th (click)="sort('name')">
                     Name
                     <span *ngIf="currentSortField === 'name' && sortOrder === 'asc'">▲</span>
@@ -131,9 +132,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let appointment of filteredAppointments | paginate: { currentPage: page, itemsPerPage: pageSize, totalItems: collectionSize }">
+                <tr *ngFor="let appointment of filteredAppointments | paginate: { currentPage: page, itemsPerPage: pageSize, totalItems: collectionSize };  index as i">
                 <!-- <tr *ngFor="let appointment of filteredAppointments"> -->
                 <!-- <tr *ngFor="let appointment of paginatedAppointments"> -->
+                  <td>{{ i+1 }}</td>
                   <td>{{ appointment.name }}</td>
                   <td>{{ appointment.email }}</td>
                   <td>{{ appointment.phone }}</td>
@@ -160,9 +162,12 @@
                 <pagination-controls
                 previousLabel="Prev"
                 nextLabel="Next"
-                (pageChange)="pageChanged($event)">
+                (pageChange)="pageChanged($event)"
+                (pageBoundsCorrection)="pageChanged($event)"
+                >
                 </pagination-controls>
               </div>
+              <!-- (pageChange)="page = $event"> -->
               
               <!-- <pagination-controls
               (pageChange)="pageChanged($event)"
@@ -178,8 +183,6 @@
 
 </div>
 </div>
-
-<pre>{{filteredAppointments | json}}</pre>
 
 <app-modal *ngIf="displayModal" [title]="'Add New Appointment'" [size]="'lg'" [template]="modal" (closeModal)="closeModal()"></app-modal>
 <ng-template #modal>
