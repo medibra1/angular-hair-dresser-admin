@@ -1,13 +1,13 @@
 .spinner-border {
-    display: block;
-    margin: 20px auto;
-  }
-  
-  .alert {
-    margin-top: 20px;
-  }
+  display: block;
+  margin: 20px auto;
+}
 
-  /* appointments.component.css */
+.alert {
+  margin-top: 20px;
+}
+
+/* appointments.component.css */
 .filters {
   display: flex;
   gap: 1rem;
@@ -54,3 +54,6 @@
 .appointment-card p {
   margin: 0.5rem 0;
 } */
+
+
+

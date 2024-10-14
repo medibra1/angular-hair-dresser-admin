@@ -5,7 +5,13 @@ import { Subscription } from 'rxjs';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { AppointmentService } from '../../services/appointment/appointment.service';
 import { AppointmentFormComponent } from '../../components/appointment-form/appointment-form.component';
-import { NgxPaginationModule, PaginationControlsComponent } from 'ngx-pagination';
+import {
+  NgxPaginationModule,
+  PaginationControlsComponent,
+} from 'ngx-pagination';
+
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export interface IAppointment {
   id: number;
@@ -16,18 +22,22 @@ export interface IAppointment {
   time: Time;
   status: number;
   service: string;
-  service_id: number
+  service_id: number;
 }
 
 @Component({
   selector: 'app-appointments',
   standalone: true,
-  imports: [CommonModule, FormsModule, ModalComponent, AppointmentFormComponent, NgxPaginationModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ModalComponent,
+    AppointmentFormComponent,
+    NgxPaginationModule,
+  ],
   templateUrl: './appointments.component.html',
   styleUrl: './appointments.component.css',
 })
-
-
 export class AppointmentsComponent {
   appointments: any[] = [];
   filteredAppointments: any[] = [];
@@ -39,28 +49,29 @@ export class AppointmentsComponent {
   //   date: '',
   //   status: ''
   // }
-  
-  statusList: any[] = [ {
+
+  statusList: any[] = [
+    {
       statusNumber: 1,
       title: 'Pending',
-      color: 'warning'
+      color: 'warning',
     },
     {
       statusNumber: 2,
       title: 'Confirmed',
-      color: 'primary'
+      color: 'primary',
     },
     {
       statusNumber: 3,
       title: 'Missed',
-      color: 'secondary'
+      color: 'secondary',
     },
     // { statusNumber: 4, title: 'Cancelled', color: 'danger' }
   ];
 
   filter = {
     searchText: '',
-    status:  '',
+    status: '',
     date: '',
   };
 
@@ -72,7 +83,7 @@ export class AppointmentsComponent {
   errorMessage = '';
   successMessage = '';
 
-  currentPage: number = 1;  //ngx pagination
+  currentPage: number = 1; //ngx pagination
   page = 1;
   pageSize = 10;
   // collectionSize = this.appointments.length;
@@ -80,9 +91,7 @@ export class AppointmentsComponent {
   currentSortField: string = 'name'; // Champ de tri actuel
   sortOrder: 'asc' | 'desc' = 'asc'; // Ordre de tri actuel
 
-  constructor(
-    private appointmentService: AppointmentService,
-  ) {}
+  constructor(private appointmentService: AppointmentService) {}
 
   ngOnInit(): void {
     this.appointmentService.loadAppointments();
@@ -102,36 +111,45 @@ export class AppointmentsComponent {
     });
   }
 
-  async changeStatus(id: number, status: number) {  
-    if(window.confirm('Do you want to change appointment status to: '+this.getStatusName(status).title)) {
-      await this.appointmentService.changeAppointmentStatus(id, status)
+  async changeStatus(id: number, status: number) {
+    if (
+      window.confirm(
+        'Do you want to change appointment status to: ' +
+          this.getStatusName(status).title
+      )
+    ) {
+      await this.appointmentService.changeAppointmentStatus(id, status);
     }
   }
 
   applyFilters() {
     this.filteredAppointments = this.appointments
       .filter((appointment) => {
-        const searchText = this.filter.searchText ? this.filter.searchText.toLowerCase() : '';
-  
+        const searchText = this.filter.searchText
+          ? this.filter.searchText.toLowerCase()
+          : '';
+
         return (
-          (!searchText || 
-            (appointment.name && appointment.name.toLowerCase().includes(searchText)) ||
-            (appointment.service && appointment.service.toLowerCase().includes(searchText)) ||
-            (appointment.phone && appointment.phone.toLowerCase().includes(searchText)) ||
-            (appointment.email && appointment.email.toLowerCase().includes(searchText))
-          ) &&
+          (!searchText ||
+            (appointment.name &&
+              appointment.name.toLowerCase().includes(searchText)) ||
+            (appointment.service &&
+              appointment.service.toLowerCase().includes(searchText)) ||
+            (appointment.phone &&
+              appointment.phone.toLowerCase().includes(searchText)) ||
+            (appointment.email &&
+              appointment.email.toLowerCase().includes(searchText))) &&
           (!this.filter.date || appointment.date === this.filter.date) &&
           (!this.filter.status || appointment.status == +this.filter.status)
         );
       })
       .sort((a, b) => this.sortAppointments(a, b));
-
   }
 
   resetFilters() {
     this.filter = {
       searchText: '',
-      status:  '',
+      status: '',
       date: '',
     };
     this.filteredAppointments = this.appointments;
@@ -155,7 +173,7 @@ export class AppointmentsComponent {
     return a[field] > b[field] ? order : a[field] < b[field] ? -order : 0;
   }
 
-/*   // Méthode pour trier les appointments
+  /*   // Méthode pour trier les appointments
   sortAppointments(a: IAppointment, b: IAppointment): number {
     const column = this.sortColumn;
     if (!column) {
@@ -184,8 +202,14 @@ export class AppointmentsComponent {
   } */
 
   getStatusName(status: number) {
-    const statusObj = this.statusList.find(s => s.statusNumber == status);
-    return statusObj ? { statusId: statusObj.statusNumber, title: statusObj.title, color: statusObj.color } : { title: 'Unknown', color: 'secondary' };
+    const statusObj = this.statusList.find((s) => s.statusNumber == status);
+    return statusObj
+      ? {
+          statusId: statusObj.statusNumber,
+          title: statusObj.title,
+          color: statusObj.color,
+        }
+      : { title: 'Unknown', color: 'secondary' };
   }
 
   // getStatusName(status: number) {
@@ -200,7 +224,6 @@ export class AppointmentsComponent {
   //       return { title: 'Unknown', color: 'secondary' };
   //   }
   // }
-
 
   // applyFilters(): void {
   //   this.filteredAppointments = this.appointments.filter(appointment => {
@@ -224,7 +247,7 @@ export class AppointmentsComponent {
 
   closeModal(msg?: string): void {
     this.displayModal = false;
-    if(msg) {
+    if (msg) {
       this.successMessage = msg;
       setTimeout(() => {
         this.successMessage = undefined;
@@ -235,7 +258,7 @@ export class AppointmentsComponent {
   async deleteAppointment(id: number) {
     try {
       if (window.confirm('Do you want to remove this Appointment?')) {
-      await this.appointmentService.deleteAppointment(id);
+        await this.appointmentService.deleteAppointment(id);
       } else return;
       this.successMessage = 'Appointment deleted successfully';
       setTimeout(() => {
@@ -261,6 +284,61 @@ export class AppointmentsComponent {
     // console.log('collection size: ', this.filteredAppointments.length);
     this.page = event;
     console.log('this Page: ', this.page);
+  }
+
+
+  generatePDF() {
+    const doc = new jsPDF({
+      orientation: 'landscape', // Mode paysage
+      unit: 'mm',
+      format: 'a4',
+    });
+
+    // Charger l'image depuis /assets
+    const logo = new Image();
+    logo.src = 'assets/img/logo.png';
+    doc.addImage(logo, 'PNG', 10, 10, 19, 17); // Position (x, y) et taille (width, height)
+
+    // Titre du document
+    doc.text('Appointments List', 40, 20);
+
+    // Données du tableau
+    const head = [['Name', 'Phone', 'Date', 'Time', 'Service', 'Status']];
+    const data = this.filteredAppointments.map((row) => [
+      row.name,
+      row.phone,
+      row.date,
+      row.time,
+      row.service,
+      this.getStatusName(row.status),
+    ]);
+
+    // Générer le tableau dans le PDF avec AutoTable
+    (doc as any).autoTable({
+      head: head,
+      body: data,
+      startY: 35, // Commencer le tableau après le logo
+      theme: 'striped',
+      styles: {
+        fontSize: 10,
+        cellPadding: 3,
+      },
+    });
+
+    // doc.save('table.pdf');
+    //window.open(doc.output('bloburl'));
+
+    const blob = doc.output('blob');
+    // Créer une URL pour le Blob
+    const blobUrl = URL.createObjectURL(blob);
+    // Créer un lien <a> caché et le déclencher
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = 'ygb-appointments-list.pdf'; // Définir le nom de fichier pour le téléchargement
+    document.body.appendChild(a);
+    a.click(); // Simuler le clic sur le lien pour déclencher le téléchargement
+    document.body.removeChild(a); // Supprimer le lien après le clic
+
   }
 
   addAppointment(): void {

@@ -16,6 +16,8 @@
       </div>
     </div>
 
+<img src="assets/img/logo.png" style="width: 19mm; height: 17mm;" alt="">
+
 <div class="card mb-3">
   <div class="card-header d-flex align-items-center justify-content-between">
       <h5>Appointments</h5>
@@ -70,19 +72,23 @@
             <div class="col-md-2">
               <button class="btn btn-primary" (click)="resetFilters()">Reset</button>
             </div>
+            <div class="col-md-2">
+              <button class="btn btn-secondary" (click)="generatePDF()"><i class="bx bx-printer"></i>Print</button>
+            </div>
           </div>
   
-          <div class="table-responsive"  *ngIf="appointments.length != 0">
+          <div class="table-responsive print-area"  *ngIf="appointments.length != 0">
             <div>
               <select class="form-select-sm" style="width: 70px;" [(ngModel)]="pageSize">
                 <option [ngValue]="10">10</option>
                 <option [ngValue]="20">20</option>
                 <option [ngValue]="50">50</option>
                 <option [ngValue]="100">100</option>
+                <option [ngValue]="appointments.length">All</option>
               </select>
               <label class="form-check-label ms-2">entries per page</label>
             </div>
-            <table class="table table-striped table-hover mb-3" *ngIf="appointments.length > 0">
+            <table class="table table-striped table-hover mb-3 printable" *ngIf="appointments.length > 0">
               <thead>
                 <tr>
                   <!-- <th (click)="setSortColumn('name')">Name</th>
