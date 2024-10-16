@@ -3,19 +3,14 @@ import { Component, Input, inject } from '@angular/core';
 import { IProduct } from '../../../models/product';
 import { ProductService } from '../../../services/product/product.service';
 import { Subscription, skip, take } from 'rxjs';
-import { RouterModule } from '@angular/router';
 import { ModalComponent } from '../../../components/modal/modal.component';
 import {
-  AbstractControl,
-  FormArray,
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { CategoryService } from '../../../services/category/category.service';
 
 @Component({

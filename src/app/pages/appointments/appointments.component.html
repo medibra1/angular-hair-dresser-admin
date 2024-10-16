@@ -16,8 +16,6 @@
       </div>
     </div>
 
-<img src="assets/img/logo.png" style="width: 19mm; height: 17mm;" alt="">
-
 <div class="card mb-3">
   <div class="card-header d-flex align-items-center justify-content-between">
       <h5>Appointments</h5>
@@ -73,11 +71,11 @@
               <button class="btn btn-primary" (click)="resetFilters()">Reset</button>
             </div>
             <div class="col-md-2">
-              <button class="btn btn-secondary" (click)="generatePDF()"><i class="bx bx-printer"></i>Print</button>
+              <button class="btn btn-secondary" (click)="generatePDF()"><i class="bx bx-cloud-download"></i>Download</button>
             </div>
           </div>
   
-          <div class="table-responsive print-area"  *ngIf="appointments.length != 0">
+          <div class="table-responsive"  *ngIf="appointments.length != 0">
             <div>
               <select class="form-select-sm" style="width: 70px;" [(ngModel)]="pageSize">
                 <option [ngValue]="10">10</option>
@@ -146,7 +144,7 @@
                   <td>{{ appointment.email }}</td>
                   <td>{{ appointment.phone }}</td>
                   <td>{{ appointment.date }}</td>
-                  <td>{{ appointment.time }}</td>
+                  <td>{{ getOnlyHourMinute(appointment.time) }}</td>
                   <td>{{ appointment.service }}</td>
                   <td>
                     <span class="badge" [ngClass]="'bg-'+getStatusName(appointment.status).color">

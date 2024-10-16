@@ -5,10 +5,7 @@ import { Subscription } from 'rxjs';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { AppointmentService } from '../../services/appointment/appointment.service';
 import { AppointmentFormComponent } from '../../components/appointment-form/appointment-form.component';
-import {
-  NgxPaginationModule,
-  PaginationControlsComponent,
-} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -212,6 +209,15 @@ export class AppointmentsComponent {
       : { title: 'Unknown', color: 'secondary' };
   }
 
+  getOnlyHourMinute(time) {
+    const [hours, minutes] = time.split(':').map(Number);
+    return `${this.padZero(hours)}:${this.padZero(minutes)}`;
+  }
+
+  padZero(number: number): string {
+    return number < 10 ? `0${number}` : number.toString(); // ajouter un zéro au début si le chiffre est inférieur à 10
+  }
+
   // getStatusName(status: number) {
   //   switch (status) {
   //     case 1:
@@ -286,7 +292,6 @@ export class AppointmentsComponent {
     console.log('this Page: ', this.page);
   }
 
-
   generatePDF() {
     const doc = new jsPDF({
       orientation: 'landscape', // Mode paysage
@@ -297,7 +302,7 @@ export class AppointmentsComponent {
     // Charger l'image depuis /assets
     const logo = new Image();
     logo.src = 'assets/img/logo.png';
-    doc.addImage(logo, 'PNG', 10, 10, 19, 17); // Position (x, y) et taille (width, height)
+    doc.addImage(logo, 'PNG', 10, 10, 18, 17); // Position (x, y) et taille (width, height)
 
     // Titre du document
     doc.text('Appointments List', 40, 20);
@@ -308,7 +313,7 @@ export class AppointmentsComponent {
       row.name,
       row.phone,
       row.date,
-      row.time,
+      this.getOnlyHourMinute(row.time),
       row.service,
       this.getStatusName(row.status),
     ]);
@@ -338,7 +343,6 @@ export class AppointmentsComponent {
     document.body.appendChild(a);
     a.click(); // Simuler le clic sur le lien pour déclencher le téléchargement
     document.body.removeChild(a); // Supprimer le lien après le clic
-
   }
 
   addAppointment(): void {

@@ -1,8 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
-import { filter, map } from 'rxjs';
+import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { LoaderComponent } from './components/loader/loader.component';
 
 @Component({
@@ -27,6 +26,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     ]),
   ],
 })
+
 export class AppComponent {
   title = 'barbershop-admin';
 
@@ -44,6 +44,7 @@ export class AppComponent {
     if(currentRoute[1] == 'settings') this.activeItem ='settings';
     if(currentRoute[1] == 'services') this.activeItem ='services';
     if(currentRoute[1] == 'appointments') this.activeItem ='appointments';
+    if(currentRoute[1] == 'appointments-settings') this.activeItem ='appointments';
     // if(currentRoute[1] == 'products/categories') this.activeItem ='products/categories';
     
     // this.router.events

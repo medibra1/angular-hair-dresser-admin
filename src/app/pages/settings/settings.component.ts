@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ISetting } from '../../models/setting';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GlobalService } from '../../services/global/global.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { skip, take } from 'rxjs';

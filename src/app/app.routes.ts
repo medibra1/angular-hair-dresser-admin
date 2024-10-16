@@ -76,9 +76,18 @@ export const routes: Routes = [
   //   },
   {
     path: 'appointments',
+    title: 'appointments list',
     loadComponent: () =>
       import('./pages/appointments/appointments.component').then(
         (mod) => mod.AppointmentsComponent
+      ),
+  },
+  {
+    path: 'appointments-settings',
+    title: 'appointments settings',
+    loadComponent: () =>
+      import('./pages/appointments-settings/appointments-settings.component').then(
+        (mod) => mod.AppointmentsSettingsComponent
       ),
   },
   {

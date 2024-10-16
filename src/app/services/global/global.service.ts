@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { ISetting } from '../../models/setting';
-import { BehaviorSubject, Observable, firstValueFrom, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { ApiService } from '../api/api.service';
 
 @Injectable({

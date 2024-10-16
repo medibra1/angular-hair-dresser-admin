@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { IProduct } from '../../models/product';
 import { BehaviorSubject, firstValueFrom, lastValueFrom } from 'rxjs';
 import { ApiService } from '../api/api.service';
-import { GlobalService } from '../global/global.service';
 
 @Injectable({
   providedIn: 'root'
