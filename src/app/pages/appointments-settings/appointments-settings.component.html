@@ -106,7 +106,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="date" class="form-label">Off Date</label>
-                    <input type="date" class="form-control" id="date" [min]="minDate" (change)="handleAdd('dates', $event)" [readonly]="!editMode">
+                    <input type="date" #dateInput3 placeholder="Date" class="form-control" style="display: none;" [min]="minDate" (change)="handleAdd('dates', $event)" (blur)="onBlur()" [disabled]="!editMode">
+                    <button #dateInputBtn3 (click)="openDatePicker($event)" class="form-control" [disabled]="!editMode">Choose Date </button>
                 </div>
                 
                 <div class="mb-5" *ngIf="selectedDates.length > 0">

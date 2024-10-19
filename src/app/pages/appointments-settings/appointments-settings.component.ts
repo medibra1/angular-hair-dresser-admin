@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormErrorMsgComponent } from '../../components/form-error-msg/form-error-msg.component';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +29,9 @@ export class AppointmentsSettingsComponent {
   selectedDays: string[] = [];
   selectedDates: string[] = [];
   minDate: string;
+
+  @ViewChild('dateInput3') dateInput!: ElementRef;
+  @ViewChild('dateInputBtn3') dateInputBtn!: ElementRef;
 
   constructor() {
     this.settingsForm = this.fb.group({
@@ -63,6 +66,13 @@ export class AppointmentsSettingsComponent {
     this.minDate = today.toISOString().split('T')[0]; // Format to 'YYYY-MM-DD'
   }
 
+  openDatePicker(event: MouseEvent): void {
+    event.preventDefault();
+    this.dateInputBtn.nativeElement.style.display = 'none';
+    this.dateInput.nativeElement.style.display = 'block';
+    this.dateInput.nativeElement.focus();
+  }
+
   initializeForm(): void {
     if (!this.settings) {
       return;
@@ -79,9 +89,13 @@ export class AppointmentsSettingsComponent {
 
   toggleEditMode(): void {
     this.editMode = !this.editMode;
-    if (!this.editMode) this.initializeForm();
-    this.selectedDays = this.settings.off_days ? [...this.settings.off_days] : [];
-    this.selectedDates = this.settings.off_dates ? [...this.settings.off_dates] : [];
+    if (!this.editMode) {
+      this.initializeForm();
+      this.dateInputBtn.nativeElement.style.display = 'block';
+      this.dateInput.nativeElement.style.display = 'none';
+    }
+    this.selectedDays = this.settings.off_days? [...this.settings.off_days] : [];
+    this.selectedDates = this.settings.off_dates? [...this.settings.off_dates] : [];
   }
 
   isObjectExist(obj: any): boolean {
@@ -99,12 +113,18 @@ export class AppointmentsSettingsComponent {
   async saveSettings() {
     if (this.settingsForm.valid) {
       let formData = new FormData();
- 
-      Object.keys(this.settingsForm.value).forEach(key => {
-        if (this.settingsForm.value[key] !== null && this.settingsForm.value[key] !== '') {
-          formData.append(key, this.getOnlyHourMinute(this.settingsForm.value[key]));
+
+      Object.keys(this.settingsForm.value).forEach((key) => {
+        if (
+          this.settingsForm.value[key] !== null &&
+          this.settingsForm.value[key] !== ''
+        ) {
+          formData.append(
+            key,
+            this.getOnlyHourMinute(this.settingsForm.value[key])
+          );
         } else {
-            formData.append(key, '');
+          formData.append(key, '');
         }
       });
 
@@ -113,13 +133,13 @@ export class AppointmentsSettingsComponent {
       // formData.append('pause_start_time', this.getOnlyHourMinute(this.settingsForm.value['pause_start_time']));
       // formData.append('pause_end_time', this.getOnlyHourMinute(this.settingsForm.value['pause_end_time']));
 
-      if(this.selectedDays.length > 0) {
+      if (this.selectedDays.length > 0) {
         this.selectedDays.forEach((d) => {
           formData.append('off_days[]', d);
         });
       } else formData.append('off_days[]', '');
 
-      if(this.selectedDates.length > 0) {
+      if (this.selectedDates.length > 0) {
         this.selectedDates.forEach((d) => {
           formData.append('off_dates[]', d);
         });
@@ -173,6 +193,11 @@ export class AppointmentsSettingsComponent {
     };
     return days[day];
   }
+
+  onBlur(){
+    this.dateInputBtn.nativeElement.style.display = 'block';
+    this.dateInput.nativeElement.style.display = 'none';
+ }
 
   // Unified add/remove handler
   handleAdd(type: string, event: any) {

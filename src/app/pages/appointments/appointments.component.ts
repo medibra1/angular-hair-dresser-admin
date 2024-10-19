@@ -1,5 +1,5 @@
 import { CommonModule, Time } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ModalComponent } from '../../components/modal/modal.component';
@@ -88,12 +88,22 @@ export class AppointmentsComponent {
   currentSortField: string = 'name'; // Champ de tri actuel
   sortOrder: 'asc' | 'desc' = 'asc'; // Ordre de tri actuel
 
+  @ViewChild('dateInput') dateInput!: ElementRef; 
+  @ViewChild('dateInputBtn') dateInputBtn!: ElementRef; 
+
   constructor(private appointmentService: AppointmentService) {}
 
   ngOnInit(): void {
     this.appointmentService.loadAppointments();
     this.loadAppointments();
   }
+
+  openDatePicker(event: MouseEvent): void {
+      event.preventDefault();
+      this.dateInputBtn.nativeElement.style.display = 'none'; 
+      this.dateInput.nativeElement.style.display = 'block'; 
+      this.dateInput.nativeElement.focus(); 
+}
 
   loadAppointments(): void {
     this.appointmentSub = this.appointmentService.appointments$.subscribe({
@@ -149,6 +159,8 @@ export class AppointmentsComponent {
       status: '',
       date: '',
     };
+    this.dateInput.nativeElement.style.display = 'none';
+    this.dateInputBtn.nativeElement.style.display = 'block';
     this.filteredAppointments = this.appointments;
   }
 

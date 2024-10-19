@@ -7,4 +7,10 @@ select.ng-touched.ng-invalid {
   outline: none;
 }
 
+.error-border {
+  border: 2px solid red;
+}
+.error-border:hover {
+  border: 2px solid red;
+}
 

@@ -51,8 +51,10 @@
               </div>
 
               <div class="col-lg-6 col-12">
-                <input type="date" id="bb-date" [min]="minDate" formControlName="date" class="form-control mb-0"
+                <input type="date" id="date-input2" style="display: none;"[min]="minDate" formControlName="date" class="form-control mb-0"
                   placeholder="Date" (change)="onDateChange($event)">
+                  <button (click)="openDatePicker($event)" id="date-input-btn2" class="form-control mb-0" 
+                  [ngClass]="{'error-border': appointmentForm.get('date')?.invalid && appointmentForm.get('date')?.touched}">Choose Date </button>
                 <div class="mb-2">
                   <app-form-error-msg [control]="appointmentForm.controls['date']"></app-form-error-msg>
                 </div>

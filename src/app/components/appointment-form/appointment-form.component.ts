@@ -63,7 +63,14 @@ export class AppointmentFormComponent {
     this.getServices();
   }
 
-
+  openDatePicker(event: MouseEvent): void {
+    event.preventDefault();
+    const dateInput = document.getElementById('date-input2') as HTMLInputElement;
+    const dateInputBtn = document.getElementById('date-input-btn2') as HTMLInputElement;
+    dateInputBtn.style.display = 'none'; 
+    dateInput.style.display = 'block'; 
+    dateInput.focus(); 
+  }
 
   getServices() {
     this.servicesSub =  this.global.services$
