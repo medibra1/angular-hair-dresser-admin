@@ -5,11 +5,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IAppointmentSetting } from '../../models/appointment-setting';
 import { skip, take } from 'rxjs';
 import { AppointmentsSettingsService } from '../../services/appointments-settings/appointments-settings.service';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-appointments-settings',
   standalone: true,
-  imports: [FormErrorMsgComponent, CommonModule, ReactiveFormsModule],
+  imports: [FormErrorMsgComponent, CommonModule, ReactiveFormsModule, BsDatepickerModule],
   // providers: [DatePipe],
   templateUrl: './appointments-settings.component.html',
   styleUrl: './appointments-settings.component.css',
@@ -28,10 +29,11 @@ export class AppointmentsSettingsComponent {
 
   selectedDays: string[] = [];
   selectedDates: string[] = [];
-  minDate: string;
+  // minDate: string;
+  minDate: Date = new Date();
 
-  @ViewChild('dateInput3') dateInput!: ElementRef;
-  @ViewChild('dateInputBtn3') dateInputBtn!: ElementRef;
+  // @ViewChild('dateInput3') dateInput!: ElementRef;
+  // @ViewChild('dateInputBtn3') dateInputBtn!: ElementRef;
 
   constructor() {
     this.settingsForm = this.fb.group({
@@ -62,16 +64,20 @@ export class AppointmentsSettingsComponent {
     });
 
     // Get today's date in YYYY-MM-DD format
-    const today = new Date();
-    this.minDate = today.toISOString().split('T')[0]; // Format to 'YYYY-MM-DD'
+    // const today = new Date();
+    // this.minDate = today.toISOString().split('T')[0]; // Format to 'YYYY-MM-DD'
   }
 
-  openDatePicker(event: MouseEvent): void {
-    event.preventDefault();
-    this.dateInputBtn.nativeElement.style.display = 'none';
-    this.dateInput.nativeElement.style.display = 'block';
-    this.dateInput.nativeElement.focus();
+  disableTyping(event: KeyboardEvent): void {
+    event.preventDefault(); // Disable typing
   }
+
+  // openDatePicker(event: MouseEvent): void {
+  //   event.preventDefault();
+  //   this.dateInputBtn.nativeElement.style.display = 'none';
+  //   this.dateInput.nativeElement.style.display = 'block';
+  //   this.dateInput.nativeElement.focus();
+  // }
 
   initializeForm(): void {
     if (!this.settings) {
@@ -91,8 +97,8 @@ export class AppointmentsSettingsComponent {
     this.editMode = !this.editMode;
     if (!this.editMode) {
       this.initializeForm();
-      this.dateInputBtn.nativeElement.style.display = 'block';
-      this.dateInput.nativeElement.style.display = 'none';
+      // this.dateInputBtn.nativeElement.style.display = 'block';
+      // this.dateInput.nativeElement.style.display = 'none';
     }
     this.selectedDays = this.settings.off_days? [...this.settings.off_days] : [];
     this.selectedDates = this.settings.off_dates? [...this.settings.off_dates] : [];
@@ -194,26 +200,39 @@ export class AppointmentsSettingsComponent {
     return days[day];
   }
 
-  onBlur(){
-    this.dateInputBtn.nativeElement.style.display = 'block';
-    this.dateInput.nativeElement.style.display = 'none';
- }
+//   onBlur(){
+//     this.dateInputBtn.nativeElement.style.display = 'block';
+//     this.dateInput.nativeElement.style.display = 'none';
+//  }
 
   // Unified add/remove handler
   handleAdd(type: string, event: any) {
-    const value = event.target.value;
-
-    if (type === 'days' && value && !this.selectedDays.includes(value)) {
-      this.selectedDays.push(value);
+    // const value = event.target.value;
+    // if (type === 'days' && value && !this.selectedDays.includes(value)) {
+    //   this.selectedDays.push(value);
+    // } else if (type === 'dates' && value && !this.selectedDates.includes(value)
+    // ) {this.selectedDates.push(value); }
+    // event.target.value = ''; 
+    console.log('event.target.value: ', event.target);
+    let dayValue = event.target ? event.target.value : null;
+    let dateValue = event;
+    if (type === 'days' && dayValue && !this.selectedDays.includes(dayValue)) {
+      this.selectedDays.push(dayValue);
     } else if (
       type === 'dates' &&
-      value &&
-      !this.selectedDates.includes(value)
+      dateValue &&
+      !this.selectedDates.includes(dateValue)
     ) {
-      this.selectedDates.push(value);
+      const year = event.getFullYear();
+      const month = (event.getMonth() + 1).toString().padStart(2, '0'); // Adjust for 0-indexed month
+      const day = event.getDate().toString().padStart(2, '0');
+      // Format the date as a string to match the format in your excludedDates array (yyyy-mm-dd)
+      const formattedDate = `${year}-${month}-${day}`;
+      this.selectedDates.push(formattedDate);
     }
 
-    event.target.value = ''; // Reset input/select field after adding
+    dayValue = ''; // Reset input/select field after adding
+    dateValue = null; // Reset input/select field after adding
   }
 
   handleRemove(type: string, value: string) {

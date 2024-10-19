@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import 'ngx-bootstrap/datepicker/bs-datepicker.css';
+
 input.ng-touched.ng-invalid,
 textarea.ng-touched.ng-invalid,
 select.ng-touched.ng-invalid {
