@@ -1,275 +1,306 @@
-<!-- Layout wrapper -->
-<div class="layout-wrapper layout-content-navbar">
-  <div class="layout-container">
-    <!-- Menu -->
+<!-- Layout principal qui doit être caché sur la page de login -->
+<ng-container *ngIf="showMainLayout">
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu -->
 
-    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme "
-      [ngClass]="{'display-mobile-menu': isActive}">
-      <div class="app-brand demo">
-        <a href="javascript:void(0);" class="app-brand-link">
-          <span class="app-brand-logo demo">
-            <img src="assets/img/logo.png" alt="logo" width="50">
-          </span>
-          <span class="app-brand-text demo menu-text fw-bold ms-2 text-capitalize">Ygb admin</span>
-        </a>
+      <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme "
+        [ngClass]="{'display-mobile-menu': isActive}">
+        <div class="app-brand demo">
+          <a href="javascript:void(0);" class="app-brand-link">
+            <span class="app-brand-logo demo">
+              <img src="assets/img/logo.png" alt="logo" style="width: 50px; height: 46px;">
+            </span>
+            <span class="app-brand-text demo menu-text fw-bold ms-2 text-capitalize">Ygb admin</span>
+          </a>
 
-        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"
-          [ngClass]="{'block': isActive}" (click)="toggleMenu()">
-          <i class="bx bx-chevron-left bx-sm align-middle"></i>
-        </a>
-      </div>
-
-      <div class="menu-inner-shadow"></div>
-
-      <ul class="menu-inner py-1">
-        <!-- Dashboards -->
-        <ng-container [ngSwitch]="openSubNav">
-          <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-home-circle"></i>
-              <div data-i18n="Dashboards">Dashboards</div>
-            </a>
-          </li>
-
-          <li class="menu-item" [ngClass]="{'open': openSubNav == 'settings', 'active': activeItem == 'settings'}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleSubMenu('settings')">
-              <i class="menu-icon tf-icons bx bx-cog"></i>
-              <div data-i18n="Dashboards">Site settings</div>
-            </a>
-            <ul class="menu-sub d-block" *ngSwitchCase="'settings'" [@slideInOut]>
-              <li class="menu-item" routerLink="/settings" routerLinkActive="active"
-                (click)="handleActiveITem('settings')">
-                <a href="javascript:void(0);" class="menu-link">
-                  <div data-i18n="Analytics">Site Info</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Products</span>
-          </li>
-
-          <!-- <li class="menu-item" [ngClass]="{'open': openSubNav == 'products'}" routerLinkActive="active">
-            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleSubMenu('products')">
-              <i class="menu-icon tf-icons bx bx-coin-stack"></i>
-              <div data-i18n="Dashboards">Products</div>
-            </a>
-            <ul class="menu-sub">
-              <li class="menu-item" routerLink="/products" routerLinkActive="active">
-                <a href="javascript:void(0);" class="menu-link">
-                  <div data-i18n="Analytics">Products list</div>
-                </a>
-              </li>
-            </ul>
-          </li> -->
-
-          <li class="menu-item" [ngClass]="{'open': openSubNav == 'products', 'active': activeItem == 'products'}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleSubMenu('products')">
-              <i class="menu-icon tf-icons bx bx-coin-stack"></i>
-              <div data-i18n="Dashboards">Products</div>
-            </a>
-            <ul class="menu-sub d-block" *ngSwitchCase="'products'" [@slideInOut]>
-              <li class="menu-item" routerLink="/products/list" routerLinkActive="active"
-                (click)="handleActiveITem('products')">
-                <a href="javascript:void(0);" class="menu-link">
-                  <div data-i18n="Analytics">Products list</div>
-                </a>
-              </li>
-              <li class="menu-item" routerLink="/products/categories" routerLinkActive="active" 
-                (click)="handleActiveITem('products')">
-                <a href="javascript:void(0);" class="menu-link">
-                  <div data-i18n="Analytics">Categories list</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <!-- Services -->
-          <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Products</span>
-          </li>
-          <li class="menu-item" [ngClass]="{'open': openSubNav == 'services', 'active': activeItem == 'services'}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleSubMenu('services')">
-              <i class="menu-icon tf-icons bx bx-server"></i>
-              <div data-i18n="Dashboards">Services</div>
-            </a>
-            <ul class="menu-sub d-block" *ngSwitchCase="'services'" [@slideInOut]>
-              <li class="menu-item" routerLink="/services" routerLinkActive="active"
-                (click)="handleActiveITem('services')">
-                <a href="javascript:void(0);" class="menu-link">
-                  <div data-i18n="Analytics">Services list</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <!-- Appointments -->
-          <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Appointments</span>
-          </li>
-          <li class="menu-item" [ngClass]="{'open': openSubNav == 'appointments', 'active': activeItem == 'appointments'}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleSubMenu('appointments')">
-              <i class="menu-icon tf-icons bx bx-calendar"></i>
-              <div data-i18n="Dashboards">Appointments</div>
-            </a>
-            <ul class="menu-sub d-block" *ngSwitchCase="'appointments'" [@slideInOut]>
-              <li class="menu-item" routerLink="/appointments" routerLinkActive="active"
-                (click)="handleActiveITem('appointments')">
-                <a href="javascript:void(0);" class="menu-link">
-                  <div data-i18n="Analytics">Appointments list</div>
-                </a>
-              </li>
-              <li class="menu-item" routerLink="/appointments-settings" routerLinkActive="active" 
-              (click)="handleActiveITem('appointments')">
-              <a href="javascript:void(0);" class="menu-link">
-                <div data-i18n="Analytics">Appointemnts Settings</div>
-              </a>
-            </li>
-            </ul>
-          </li>
-        </ng-container>
-      </ul>
-    </aside>
-    <!-- / Menu -->
-
-    <!-- Layout container -->
-    <div class="layout-page">
-      <!-- Navbar -->
-
-      <nav
-        class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-        id="layout-navbar">
-        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none" (click)="toggleMenu()">
-          <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-            <i class="bx bx-menu bx-sm"></i>
+          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"
+            [ngClass]="{'block': isActive}" (click)="toggleMenu()">
+            <i class="bx bx-chevron-left bx-sm align-middle"></i>
           </a>
         </div>
 
-        <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-          <!-- Search -->
-          <!-- <div class="navbar-nav align-items-center">
-              <div class="nav-item d-flex align-items-center">
-                <i class="bx bx-search fs-4 lh-0"></i>
-                <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..."
-                  aria-label="Search..." />
-              </div>
-            </div> -->
-          <!-- /Search -->
+        <div class="menu-inner-shadow"></div>
 
-          <ul class="navbar-nav flex-row align-items-center ms-auto">
-            <!-- Place this tag where you want the button to render. -->
-            <!-- <li class="nav-item lh-1 me-3">
-                <a class="github-button" href="https://github.com/themeselection/sneat-html-admin-template-free"
-                  data-icon="octicon-star" data-size="large" data-show-count="true"
-                  aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
-              </li> -->
-
-            <!-- User -->
-            <li class="nav-item navbar-dropdown dropdown-user dropdown">
-              <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                <div class="avatar avatar-online">
-                  <img src="assets/img/logo.png" alt class="w-px-40 h-auto rounded-circle" />
-                </div>
+        <ul class="menu-inner py-1">
+          <!-- Dashboards -->
+          <ng-container [ngSwitch]="openSubNav">
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Dashboards">Dashboards</div>
               </a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                  <a class="dropdown-item" href="#">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar avatar-online">
-                          <img src="assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <span class="fw-medium d-block">Youssef</span>
-                        <small class="text-muted">Admin</small>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <div class="dropdown-divider"></div>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    <i class="bx bx-user me-2"></i>
-                    <span class="align-middle">My Profile</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    <i class="bx bx-cog me-2"></i>
-                    <span class="align-middle">Settings</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    <span class="d-flex align-items-center align-middle">
-                      <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                      <span class="flex-grow-1 align-middle ms-1">Billing</span>
-                      <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <div class="dropdown-divider"></div>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:void(0);">
-                    <i class="bx bx-power-off me-2"></i>
-                    <span class="align-middle">Log Out</span>
+            </li>
+
+            <li class="menu-item" [ngClass]="{'open': openSubNav == 'settings', 'active': activeItem == 'settings'}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleSubMenu('settings')">
+                <i class="menu-icon tf-icons bx bx-cog"></i>
+                <div data-i18n="Dashboards">Site settings</div>
+              </a>
+              <ul class="menu-sub d-block" *ngSwitchCase="'settings'" [@slideInOut]>
+                <li class="menu-item" routerLink="/settings" routerLinkActive="active"
+                  (click)="handleActiveITem('settings')">
+                  <a href="javascript:void(0);" class="menu-link">
+                    <div data-i18n="Analytics">Site Info</div>
                   </a>
                 </li>
               </ul>
             </li>
-            <!--/ User -->
-          </ul>
-        </div>
-      </nav>
 
-      <!-- / Navbar -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Products</span>
+            </li>
 
-      <!-- Content wrapper -->
-      <div class="content-wrapper">
-        <!-- Content -->
+            <!-- <li class="menu-item" [ngClass]="{'open': openSubNav == 'products'}" routerLinkActive="active">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleSubMenu('products')">
+                <i class="menu-icon tf-icons bx bx-coin-stack"></i>
+                <div data-i18n="Dashboards">Products</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item" routerLink="/products" routerLinkActive="active">
+                  <a href="javascript:void(0);" class="menu-link">
+                    <div data-i18n="Analytics">Products list</div>
+                  </a>
+                </li>
+              </ul>
+            </li> -->
 
-        <div class="container-xxl flex-grow-1 container-p-y">
+            <li class="menu-item" [ngClass]="{'open': openSubNav == 'products', 'active': activeItem == 'products'}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleSubMenu('products')">
+                <i class="menu-icon tf-icons bx bx-coin-stack"></i>
+                <div data-i18n="Dashboards">Products</div>
+              </a>
+              <ul class="menu-sub d-block" *ngSwitchCase="'products'" [@slideInOut]>
+                <li class="menu-item" routerLink="/products/list" routerLinkActive="active"
+                  (click)="handleActiveITem('products')">
+                  <a href="javascript:void(0);" class="menu-link">
+                    <div data-i18n="Analytics">Products list</div>
+                  </a>
+                </li>
+                <li class="menu-item" routerLink="/products/categories" routerLinkActive="active"
+                  (click)="handleActiveITem('products')">
+                  <a href="javascript:void(0);" class="menu-link">
+                    <div data-i18n="Analytics">Categories list</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-          <router-outlet></router-outlet>
+            <!-- Services -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Products</span>
+            </li>
+            <li class="menu-item" [ngClass]="{'open': openSubNav == 'services', 'active': activeItem == 'services'}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleSubMenu('services')">
+                <i class="menu-icon tf-icons bx bx-server"></i>
+                <div data-i18n="Dashboards">Services</div>
+              </a>
+              <ul class="menu-sub d-block" *ngSwitchCase="'services'" [@slideInOut]>
+                <li class="menu-item" routerLink="/services" routerLinkActive="active"
+                  (click)="handleActiveITem('services')">
+                  <a href="javascript:void(0);" class="menu-link">
+                    <div data-i18n="Analytics">Services list</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-        </div>
-        <!-- / Content -->
+            <!-- Appointments -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Appointments</span>
+            </li>
+            <li class="menu-item"
+              [ngClass]="{'open': openSubNav == 'appointments', 'active': activeItem == 'appointments'}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleSubMenu('appointments')">
+                <i class="menu-icon tf-icons bx bx-calendar"></i>
+                <div data-i18n="Dashboards">Appointments</div>
+              </a>
+              <ul class="menu-sub d-block" *ngSwitchCase="'appointments'" [@slideInOut]>
+                <li class="menu-item" routerLink="/appointments" routerLinkActive="active"
+                  (click)="handleActiveITem('appointments')">
+                  <a href="javascript:void(0);" class="menu-link">
+                    <div data-i18n="Analytics">Appointments list</div>
+                  </a>
+                </li>
+                <li class="menu-item" routerLink="/appointments-settings" routerLinkActive="active"
+                  (click)="handleActiveITem('appointments')">
+                  <a href="javascript:void(0);" class="menu-link">
+                    <div data-i18n="Analytics">Appointemnts Settings</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-        <!-- Footer -->
-        <footer class="content-footer footer bg-footer-theme">
-          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-            <div class="mb-2 mb-md-0">
-              ©
-              <script>
-                document.write(new Date().getFullYear());
-              </script>
-             YGB Hair Dresser | all rights reserved
-            </div>
-            <div class="d-none d-lg-inline-block">
-              <a href="javascript://void()" class="footer-link me-4">Documentation</a>
+            <!-- Admin -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Users</span>
+            </li>
+            <li class="menu-item"
+              [ngClass]="{'open': openSubNav == 'users', 'active': activeItem == 'users'}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleSubMenu('users')">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Dashboards">Users</div>
+              </a>
+              <ul class="menu-sub d-block" *ngSwitchCase="'users'" [@slideInOut]>
+                <li class="menu-item" routerLink="/users/admins" routerLinkActive="active"
+                  (click)="handleActiveITem('users')">
+                  <a href="javascript:void(0);" class="menu-link">
+                    <div data-i18n="Analytics">Admins list</div>
+                  </a>
+                </li>
+                <li class="menu-item" routerLink="/users/customers" routerLinkActive="active"
+                  (click)="handleActiveITem('users')">
+                  <a href="javascript:void(0);" class="menu-link">
+                    <div data-i18n="Analytics">Customers list</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ng-container>
+        </ul>
+      </aside>
+      <!-- / Menu -->
 
-              <a href="javascript://void()" class="footer-link">Support</a>
-            </div>
+      <!-- Layout container -->
+      <div class="layout-page">
+        <!-- Navbar -->
+
+        <nav
+          class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+          id="layout-navbar">
+          <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none"
+            (click)="toggleMenu()">
+            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+              <i class="bx bx-menu bx-sm"></i>
+            </a>
           </div>
-        </footer>
-        <!-- / Footer -->
 
-        <div class="content-backdrop fade"></div>
+          <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+            <!-- Search -->
+            <!-- <div class="navbar-nav align-items-center">
+                <div class="nav-item d-flex align-items-center">
+                  <i class="bx bx-search fs-4 lh-0"></i>
+                  <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..."
+                    aria-label="Search..." />
+                </div>
+              </div> -->
+            <!-- /Search -->
+
+            <ul class="navbar-nav flex-row align-items-center ms-auto">
+              <!-- Place this tag where you want the button to render. -->
+              <!-- <li class="nav-item lh-1 me-3">
+                  <a class="github-button" href="https://github.com/themeselection/sneat-html-admin-template-free"
+                    data-icon="octicon-star" data-size="large" data-show-count="true"
+                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
+                </li> -->
+
+              <!-- User -->
+              <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" (click)="toggleProfileDropdown($event)">
+                  <div class="avatar avatar-online">
+                    <img [src]="profile?.photo ? profile?.photo : 'assets/img/logo.png' " class="w-px-40 h-px-40 rounded-circle" />
+                  </div>
+                </a>
+                <!-- <ul class="dropdown-menu dropdown-menu-end " style="right: 0; left: auto;" [ngClass]="isdroppedDown ? 'd-block' : 'd-none'"> -->
+                <ul *ngIf="isdroppedDown" class="dropdown-menu dropdown-menu-end d-block" style="right: 0; left: auto;" [@slideInOut]>
+                  <li>
+                    <a class="dropdown-item" href="javascript:void(0);">
+                      <div class="d-flex">
+                        <div class="flex-shrink-0 me-3">
+                          <div class="avatar avatar-online">
+                            <img [src]="profile?.photo ? profile?.photo : 'assets/img/logo.png'" class="w-px-40 h-px-40 rounded-circle" />
+                          </div>
+                        </div>
+                        <div class="flex-grow-1">
+                          <span class="fw-medium d-block">{{profile?.name}}</span>
+                          <small class="text-muted">{{profile.type == 3 ? 'User' : 'Admin'}}</small>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <div class="dropdown-divider"></div>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="javascript:void(0);" routerLink="/profile">
+                      <i class="bx bx-user me-2"></i>
+                      <span class="align-middle">My Profile</span>
+                    </a>
+                  </li>
+                  <!-- <li>
+                    <a class="dropdown-item" href="javascript:void(0);">
+                      <i class="bx bx-edit-alt me-2"></i>
+                      <span class="align-middle">Edit</span>
+                    </a>
+                  </li> -->
+                  <li>
+                    <div class="dropdown-divider"></div>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="javascript:void(0);" (click)="logout()">
+                      <i class="bx bx-power-off me-2"></i>
+                      <span class="align-middle">Log Out</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!--/ User -->
+            </ul>
+          </div>
+        </nav>
+
+        <!-- / Navbar -->
+
+        <!-- Content wrapper -->
+        <div class="content-wrapper">
+          <!-- Content -->
+
+          <div class="container-xxl flex-grow-1 container-p-y">
+
+            <router-outlet></router-outlet>
+
+          </div>
+          <!-- / Content -->
+
+          <!-- Footer -->
+          <footer class="content-footer footer bg-footer-theme">
+            <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+              <div class="mb-2 mb-md-0">
+                ©
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                YGB Hair Dresser | all rights reserved
+              </div>
+              <div class="d-none d-lg-inline-block">
+                <a href="javascript://void()" class="footer-link me-4">Documentation</a>
+
+                <a href="javascript://void()" class="footer-link">Support</a>
+              </div>
+            </div>
+          </footer>
+          <!-- / Footer -->
+
+          <div class="content-backdrop fade"></div>
+        </div>
+        <!-- Content wrapper -->
       </div>
-      <!-- Content wrapper -->
+      <!-- / Layout page -->
     </div>
-    <!-- / Layout page -->
-  </div>
 
-  <!-- Overlay -->
-  <div class="layout-overlay layout-menu-toggle" [ngClass]="{'block': isActive}" (click)="toggleMenu()"></div>
-</div>
-<!-- / Layout wrapper -->
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle" [ngClass]="{'block': isActive}" (click)="toggleMenu()"></div>
+  </div>
+  <!-- / Layout wrapper -->
+
+</ng-container>
+
+
+
+<!-- Toujours afficher le router-outlet pour afficher le login ou d'autres routes -->
+<router-outlet *ngIf="!showMainLayout"></router-outlet>
+
+<app-toast></app-toast>
 
 <app-loader></app-loader>

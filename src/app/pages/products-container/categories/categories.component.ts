@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CategoryService } from '../../../services/category/category.service';
+import { AlertComponent } from '../../../components/alert/alert.component';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AlertComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css'
 })
@@ -80,15 +81,9 @@ export class CategoriesComponent {
         this.successMessage = 'Category saved successfully';
         // this.editMode = false;
         this.hidewForm();
-        setTimeout(() => {
-          this.successMessage = undefined;
-        }, 3000);
       } catch (e: any) {
         console.log(e?.error?.message);
         this.errorMessage = e?.error?.message || 'An error occurred';
-        setTimeout(() => {
-          this.errorMessage = undefined;
-        }, 6000);
       }
     }
   }
@@ -99,17 +94,10 @@ export class CategoriesComponent {
         await this.categoryService.deleteCategory(id);
       } else return;
           this.successMessage = 'Category deleted successfully';
-          this.hidewForm();
-          setTimeout(() => {
-            this.successMessage = undefined;
-          }, 3000);
-        
+          this.hidewForm();        
       } catch (err) {
         if(!err.error.status && err.error.code == 409) this.errorMessage.push(err.error.message);
         else this.errorMessage.push('Something went wrong');
-        setTimeout(() => {
-          this.errorMessage = [];
-        }, 3000);
         console.log(err);
       }
   }

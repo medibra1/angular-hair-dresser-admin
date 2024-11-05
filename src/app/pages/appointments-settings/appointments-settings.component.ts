@@ -6,11 +6,12 @@ import { IAppointmentSetting } from '../../models/appointment-setting';
 import { skip, take } from 'rxjs';
 import { AppointmentsSettingsService } from '../../services/appointments-settings/appointments-settings.service';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { AlertComponent } from '../../components/alert/alert.component';
 
 @Component({
   selector: 'app-appointments-settings',
   standalone: true,
-  imports: [FormErrorMsgComponent, CommonModule, ReactiveFormsModule, BsDatepickerModule],
+  imports: [FormErrorMsgComponent, CommonModule, ReactiveFormsModule, BsDatepickerModule, AlertComponent],
   // providers: [DatePipe],
   templateUrl: './appointments-settings.component.html',
   styleUrl: './appointments-settings.component.css',
@@ -169,17 +170,11 @@ export class AppointmentsSettingsComponent {
         this.editMode = false;
         this.successMessage = 'Setting edited successfully';
         // this.isObjectEmpty(this.settings);
-        setTimeout(() => {
-          this.successMessage = undefined;
-        }, 3000);
         this.scrollToTop();
       } catch (e: any) {
         this.initializeForm();
         this.scrollToTop();
         e?.error?.message ? (this.errorMessage = e?.error?.message) : '';
-        setTimeout(() => {
-          this.errorMessage = [];
-        }, 6000);
         console.log(e?.error?.message);
       }
     } else {

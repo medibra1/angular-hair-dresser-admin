@@ -12,78 +12,18 @@ import {
 } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CategoryService } from '../../../services/category/category.service';
+import { AlertComponent } from '../../../components/alert/alert.component';
+import { FormErrorMsgComponent } from '../../../components/form-error-msg/form-error-msg.component';
+import { fileSizeValidator, fileTypeValidator, priceValidator } from '../../../services/global/custom-validators';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, ModalComponent, ReactiveFormsModule],
+  imports: [CommonModule, ModalComponent, ReactiveFormsModule, AlertComponent, FormErrorMsgComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
 export class ProductsComponent {
-  // products: IProduct[] = [];
-  // productSub: Subscription;
-  // private productService = inject(ProductService);
-
-  // filteredList: any[] = [];
-  // categories: string[] = [];
-  // selectedCategory: string = '';
-  // searchQuery: string = '';
-
-  // constructor() {}
-
-  // async ngOnInit() {
-  //   this.productSub = this.productService.products.subscribe({
-  //     next: products => {
-  //       this.products = products;
-  //       console.log('Products list: ', this.products);
-  //       this.categories = [...new Set(this.products.map(item => item.category))];
-  //       this.filteredList = this.products;
-  //     },
-  //     error: (err) => console.error('Error fetching products', err)
-  //   });
-  //   await this.productService.getProducts();
-  // }
-
-  // filterByCategory(event): void {
-  //   const category = event.target.value;
-  //   this.selectedCategory = category;
-  //   this.applyFilters();
-  // }
-
-  // searchProducts(event): void {
-  //   const query = event.target.value;
-  //   this.searchQuery = query;
-  //   this.applyFilters();
-  // }
-
-  // applyFilters(): void {
-  //   this.filteredList = this.products.filter(item => {
-  //     return ((!this.selectedCategory || item.category === this.selectedCategory) && (!this.searchQuery || item.name.toLowerCase().includes(this.searchQuery.toLowerCase()))
-  //     );
-  //   });
-  // }
-
-  // ngOnDestroy() {
-  //   if(this.productSub) this.productSub.unsubscribe();
-  // }
-
-  // getTagClass(tag: string): string {
-  //   switch (tag.toLowerCase()) {
-  //     case 'new':
-  //       return 'bg-success';
-  //     case 'promotion':
-  //       return 'bg-danger';
-  //     case 'best-sale':
-  //       return 'bg-warning';
-  //     case 'sale':
-  //       return 'bg-info';
-  //     case 'hot':
-  //       return 'bg-dark';
-  //     default:
-  //       return 'bg-secondary';
-  //   }
-  // }
 
   products: IProduct[] = [];
   productSub: Subscription;
@@ -98,6 +38,9 @@ export class ProductsComponent {
 
   selectedFile: File | null = null;
   logoPreview: string | ArrayBuffer | null = null;
+  allowedFileTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/webp'];
+  allowedFileSize = 2; // 2mb
+
   editMode = false;
   // showForm = false;
   formMode: 'Add' | 'Edit' = 'Add';
@@ -120,16 +63,22 @@ export class ProductsComponent {
     private categoryService: CategoryService, 
     private fb: FormBuilder) {
     this.productForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(255)]],
-      price: [null, [Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-      promo_price: [null, [Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
+      // price: [null, [Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      price: [null, [priceValidator()]],
+      promo_price: [null, [priceValidator()]],
       stock: [null, [Validators.minLength(0)]],
       description: [''],
       status: [false],
       category_id: ['', Validators.required],
       // type: [null, [Validators.pattern(/^\d+$/)]],
-      image: [''],
-      // image: ['', this.formMode === 'Add' && !this.selectedFile ? Validators.required : null],
+      image: [null,
+        [
+          // this.formMode == 'Add' && !this.selectedFile ? Validators.required : null,
+          fileTypeValidator(this.allowedFileTypes), 
+          fileSizeValidator(this.allowedFileSize) 
+        ]
+      ],
       colors: [''],
       brand: [''],
       additional_info: [''],
@@ -212,15 +161,23 @@ export class ProductsComponent {
       reader.readAsDataURL(this.selectedFile);
       input.value = '';
 
-      // Set the form control value
-      // this.productForm.get('image')?.setValue(this.selectedFile);
-      // this.productForm.get('image')?.updateValueAndValidity();
-    }
+    // Set the form control value
+    this.productForm.get('image')?.setValue(this.selectedFile);
+    this.productForm.get('image')?.updateValueAndValidity();
+    this.productForm.get('image')?.markAsDirty();
+    console.log(this.productForm.get('image').value);
+    } 
   }
+
+  get f() { return this.productForm.controls; }
 
   sanitizeUrl(val) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(val);
   }
+
+  // getAllowedExtensions(): string[] {
+  //   return this.allowedFileTypes.map(type => type.split('/')[1]); // extrait la partie après "/"
+  // }
 
   handleEditMode(product?: any): void {
     console.log('Selected product:', product);
@@ -247,6 +204,19 @@ export class ProductsComponent {
 
   async saveProduct() {
     console.log('Current ID: ', this.currentProductId);
+    console.log('Edit Mode : ', this.editMode);
+    console.log('Form Mode : ', this.formMode);
+
+    if (this.formMode === 'Edit') {
+      //In edit mode remove `required`
+      this.productForm.get('image')?.clearValidators();
+      this.productForm.get('image')?.addValidators([fileTypeValidator(this.allowedFileTypes), fileSizeValidator(this.allowedFileSize)]);
+    } else {
+      // in Add mode, add `Validators.required` 
+      this.productForm.get('image')?.addValidators(Validators.required);
+    }
+    this.productForm.get('image')?.updateValueAndValidity();
+
     if (this.productForm.valid) {
       if (this.productForm.get('status').value == true)
         this.productForm.get('status').patchValue(1);
@@ -295,17 +265,24 @@ export class ProductsComponent {
         this.successMessage = 'Product saved successfully';
         // this.editMode = false;
         this.resetForm();
-        setTimeout(() => {
-          this.successMessage = undefined;
-        }, 3000);
       } catch (e: any) {
         console.log(e?.error?.message);
         this.errorMessage = e?.error?.message || 'An error occurred';
-        setTimeout(() => {
-          this.errorMessage = undefined;
-        }, 6000);
       }
+    } else {
+      this.validateAllFormFields(this.productForm);
     }
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      } else {
+        control.markAsTouched({ onlySelf: true });
+      }
+    });
   }
 
   addTag(event: any) {
@@ -399,9 +376,6 @@ export class ProductsComponent {
       await this.productService.deleteProduct(id);
     } else return;
       this.successMessage = 'Product deleted successfully';
-      setTimeout(() => {
-        this.successMessage = undefined;
-      }, 3000);
   }
 
   ngOnDestroy() {

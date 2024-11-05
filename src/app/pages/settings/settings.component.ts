@@ -4,13 +4,14 @@ import { GlobalService } from '../../services/global/global.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { skip, take } from 'rxjs';
 import { FormErrorMsgComponent } from '../../components/form-error-msg/form-error-msg.component';
-import { emailValidator, urlValidator } from '../../services/global/custom-validators';
+import { emailValidator, fileSizeValidator, fileTypeValidator, urlValidator } from '../../services/global/custom-validators';
+import { AlertComponent } from '../../components/alert/alert.component';
 
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormErrorMsgComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormErrorMsgComponent, AlertComponent],
   providers: [DatePipe],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css'
@@ -23,8 +24,11 @@ export class SettingsComponent {
   settingsForm: FormGroup;
   successMessage = null;
   errorMessage = [];
+
   selectedFile: File | null = null;
   logoPreview: string | ArrayBuffer | null = null;
+  allowedFileTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/webp'];
+  allowedFileSize = 2; // 2mb
 
   private global = inject(GlobalService);
   private fb = inject(FormBuilder);
@@ -33,6 +37,12 @@ export class SettingsComponent {
   constructor() {
     this.settingsForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
+      logo: [null,
+        [
+          fileTypeValidator(this.allowedFileTypes), 
+          fileSizeValidator(this.allowedFileSize) 
+        ]
+      ],
       // site_url: ['', [Validators.pattern('^(http|https|www)://.+$')]],
       site_url: ['', [urlValidator()]],
       slogan: [''],
@@ -131,6 +141,15 @@ export class SettingsComponent {
         console.log('Logo Preview: ', );
       };
       reader.readAsDataURL(this.selectedFile);
+      input.value = '';
+
+      // Set the form control value
+      // settingsForm.append('logo', this.selectedFile, this.selectedFile.name);
+      this.settingsForm.get('logo')?.setValue(this.selectedFile);
+      this.settingsForm.get('logo')?.markAsDirty();
+      this.settingsForm.get('logo')?.updateValueAndValidity();
+      console.log(this.settingsForm.get('logo').value);
+      
     }
   }
 
@@ -157,9 +176,9 @@ export class SettingsComponent {
       Object.keys(this.settingsForm.value).forEach(key => {
         formData.append(key, this.settingsForm.value[key]);
       });
-      if (this.selectedFile) {
-        formData.append('logo', this.selectedFile, this.selectedFile.name);
-      }
+
+      if (!this.selectedFile) formData.delete('logo');
+      
       console.log('Setting form value: ', this.settingsForm.value);
       try {
         let response: any;
@@ -174,17 +193,11 @@ export class SettingsComponent {
         this.editMode = false;
         this.successMessage = 'Setting edited successfully';
         // this.isObjectEmpty(this.settings);
-        setTimeout(() => {
-          this.successMessage = undefined;
-        }, 3000);
         this.scrollToTop();
       } catch (e: any) {
         this.initializeForm();
         this.scrollToTop();
         e?.error?.message ? this.errorMessage = e?.error?.message : '';
-        setTimeout(() => {
-          this.errorMessage = [];
-        }, 6000);
         console.log(e?.error?.message);
       }
 

@@ -1,0 +1,7 @@
+
+  <div *ngIf="toastOptions" [class]="'toast ' + toastOptions.type" [ngStyle]="{ top: positionTop, bottom: positionBottom }">
+    <span>{{ toastOptions.message }}</span>
+    <button class="close-btn" (click)="dismiss()">×</button>
+  </div>
+
+  

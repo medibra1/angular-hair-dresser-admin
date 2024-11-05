@@ -6,6 +6,8 @@
           class="d-block">
             {{error.type == 'minlength' ? control.errors['minlength'].requiredLength : '' }} 
             {{error.type == 'maxlength' ? control.errors['maxlength'].requiredLength : '' }} 
+            {{error.type == 'fileSizeExceeded' ? control.errors['allowedMaxSize'] : '' }} 
+            {{error.type == 'invalidFileType' ? control.errors['allowedFileTypes'] : '' }} 
             {{error.message}}</small>
         </ng-container>
     </div>

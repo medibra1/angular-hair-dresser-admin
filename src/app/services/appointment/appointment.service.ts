@@ -19,7 +19,7 @@ export class AppointmentService {
     /**************** APPOINTMENT ****************/
     async loadAppointments() {
       try {
-        const data = await firstValueFrom(this.api.get('appointments'));
+        const data = await lastValueFrom(this.api.get('appointments'));
         console.log('++++ Apointments list +++++: ', data);
         this.appointmentsSubject.next(data);
       } catch (error) {

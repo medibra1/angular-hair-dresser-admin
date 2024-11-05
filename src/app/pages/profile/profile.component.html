@@ -1,0 +1,77 @@
+
+<app-alert [errorMessage]="errorMessage" [successMessage]="successMessage"></app-alert>
+
+<div class="card">
+
+    <div class="card-header text-white bg-info mb-3"><span class="text-uppercase">{{profile?.name }}</span> Profile
+        Inoformation</div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 offset-md-2">
+
+                <div class="row">
+                    <div class="col-md-4 col-3">Name:</div>
+                    <div class="col-md-8 col-9"> {{profile?.name}} </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-3">Email:</div>
+                    <div class="col-md-8 col-9"> {{profile?.email}} </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-3">Phone:</div>
+                    <div class="col-md-8 col-9"> {{profile?.phone}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-3">City:</div>
+                    <div class="col-md-8 col-9"> {{profile?.city}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-3">Address:</div>
+                    <div class="col-md-8 col-9"> {{profile?.address}}</div>
+                </div>
+
+                <!-- <div class="row">
+                    <div class="col-md-4">Role:</div>
+                    <div class="col-md-8"> {{ profile?.type == '1' ? 'SupAdmin' : profile?.type == '2' ? 'Admin' : profile?.type == '3' ? 'User' : '' }} </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">Status:</div>
+                    <div class="col-md-8"> {{ profile?.status == '1' ? 'Activated' : 'Not Activated' }}</div>
+                </div> -->
+
+            </div>
+            <div class="col-md-2 mt-3">
+                <img [src]="profile?.photo ? profile?.photo : '' " [title]="profile?.name" class="card-img-top"
+                    [alt]="profile?.name">
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <button class="btn btn-outline-primary ms-2 mb-sm-0 mb-2" (click)=" displayUpdateProfileModal = true;">
+            <span><i class="bx bx-edit-alt"></i> Edit profile</span>
+        </button>
+        <button class="btn btn-outline-danger ms-2 mb-sm-0 mb-2" (click)="displayUpdatePwdModal = true">
+            <span><i class="bx bx-key"></i> change Password</span>
+        </button>
+    </div>
+
+</div>
+
+<app-modal *ngIf="displayUpdateProfileModal" [title]="'Edit '+profile?.name+' Profile Info'" [size]="'lg'" [template]="modal"
+    (closeModal)="closeModal()"></app-modal>
+<ng-template #modal>
+    <app-profile-form [profile]="profile" [profileService]="profileService" (updateProfileReponse)="closeModal($event)"></app-profile-form>
+</ng-template>
+
+
+<app-modal *ngIf="displayUpdatePwdModal" [title]="'Update Password'" [size]="'lg'" [template]="updatePwdModal"
+(closeModal)="closeModal()"></app-modal>
+<ng-template #updatePwdModal> 
+    <app-update-password-form [profileService]="profileService" (updatePasswordReponse)="closeModal($event)"></app-update-password-form>
+</ng-template>

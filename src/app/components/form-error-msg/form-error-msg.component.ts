@@ -7,16 +7,15 @@ import { AbstractControl } from '@angular/forms';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './form-error-msg.component.html',
-  styleUrl: './form-error-msg.component.css'
+  styleUrl: './form-error-msg.component.css',
 })
 export class FormErrorMsgComponent {
-
   @Input() control: AbstractControl;
 
   error_messages!: Array<{
-    type: string,
-    message: string
-  }>
+    type: string;
+    message: string;
+  }>;
 
   ngOnInit() {
     this.error_messages = [
@@ -27,14 +26,36 @@ export class FormErrorMsgComponent {
       },
       {
         type: 'maxlength',
-        message:  " characters maximum",
+        message: ' characters maximum',
       },
-      { type: 'email', message: "The email format is invalid." },
-      { type: 'invalidEmail', message: "The email format is invalid." },
-      { type: 'invalidUrl', message: "Invalid URL. The URL must start with http, https, or www. and end by .xx" },
+      { type: 'email', message: 'The email format is invalid.' },
+      { type: 'invalidEmail', message: 'The email format is invalid.' },
+      {
+        type: 'invalidUrl',
+        message:
+          'Invalid URL. The URL must start with http, https, or www. and end by .xx',
+      },
       // { type: 'notMatching', message: "Passwords do not match." },
+      { type: 'noMatchingPassword', message: "Passwords do not match." },
+      {
+        type: 'passwordMismatch',
+        message: 'New password cannot be the same as the current password',
+      },
+      {
+        type: 'invalidPrice',
+        message: 'Prie must be a valid integer or decimal',
+      },
+      {
+        type: 'fileSizeExceeded',
+        message: 'MB maximum allowed for the file',
+      },
+      {
+        type: 'invalidFileType',
+        message: ' are only allowed.',
+      },
     ];
   }
-
 }
 
+// fileSizeExceeded
+// invalidFileType

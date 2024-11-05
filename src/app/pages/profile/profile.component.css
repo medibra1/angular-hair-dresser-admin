@@ -1,0 +1,19 @@
+
+.card-header {
+    padding: 15px;
+}
+
+.card-footer {
+    padding: 10px;
+    color: black !important;
+    background-color: #e6e6e6;
+}
+
+.card-img-top {
+    max-width: 300px;
+}
+
+.error-border-2 {
+    border: 2px solid red !important;
+    /* outline: none; */
+  }

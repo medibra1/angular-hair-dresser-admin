@@ -12,6 +12,7 @@ export class ModalComponent {
 
   
   @Input() title: string;
+  @Input() showFooter = true;
   // @Input() content: string | string[] | TemplateRef<any>;
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
   @Output() closeModal = new EventEmitter<void>();

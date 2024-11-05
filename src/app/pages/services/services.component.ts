@@ -3,19 +3,26 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GlobalService } from '../../services/global/global.service';
 import { Subscription } from 'rxjs';
+import { AlertComponent } from '../../components/alert/alert.component';
+import { FormErrorMsgComponent } from '../../components/form-error-msg/form-error-msg.component';
+import { fileSizeValidator, fileTypeValidator, priceValidator } from '../../services/global/custom-validators';
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AlertComponent, FormErrorMsgComponent],
   templateUrl: './services.component.html',
   styleUrl: './services.component.css'
 })
 export class ServicesComponent {
   serviceForm: FormGroup;
   servicesList: any[] = [];
+
   selectedFile: File | null = null;
   logoPreview: string | ArrayBuffer | null = null;
+  allowedFileTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/webp'];
+  allowedFileSize = 2; // 2mb
+
   editMode = false;
   // showForm = false;
   formMode: 'Add' | 'Edit' = 'Add';
@@ -27,9 +34,14 @@ export class ServicesComponent {
   constructor(private fb: FormBuilder, private global: GlobalService) {
     this.serviceForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(255)]],
-      price: ['', [Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-      promo_price: ['', [Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-      image: [''],
+      price: [null, [priceValidator()]],
+      promo_price: [null, [priceValidator()]],
+      image: [null,
+        [
+          fileTypeValidator(this.allowedFileTypes), 
+          fileSizeValidator(this.allowedFileSize) 
+        ]
+      ],
       // description: [''],
       status: [false],
       type: ['']
@@ -67,6 +79,13 @@ export class ServicesComponent {
         this.logoPreview = e.target?.result;
       };
       reader.readAsDataURL(this.selectedFile);
+      input.value = '';
+
+    // Set the form control value
+    this.serviceForm.get('image')?.setValue(this.selectedFile);
+    this.serviceForm.get('image')?.updateValueAndValidity();
+    this.serviceForm.get('image')?.markAsDirty();
+    console.log(this.serviceForm.get('image').value);
     }
   }
 
@@ -116,15 +135,9 @@ export class ServicesComponent {
         this.successMessage = 'Service saved successfully';
         // this.editMode = false;
         this.hidewForm();
-        setTimeout(() => {
-          this.successMessage = undefined;
-        }, 3000);
       } catch (e: any) {
         console.log(e?.error?.message);
         this.errorMessage = e?.error?.message || 'An error occurred';
-        setTimeout(() => {
-          this.errorMessage = undefined;
-        }, 6000);
       }
     }
   }
@@ -135,15 +148,9 @@ export class ServicesComponent {
       else return;
       this.successMessage = 'Service deleted successfully';
       this.hidewForm();
-      setTimeout(() => {
-        this.successMessage = undefined;
-      }, 3000);
     } catch (err) {
       if(!err.error.status && err.error.code == 409) this.errorMessage.push(err.error.message);
       else this.errorMessage.push('Something went wrong');
-      setTimeout(() => {
-        this.errorMessage = [];
-      }, 3000);
       console.log(err);
     }
   }

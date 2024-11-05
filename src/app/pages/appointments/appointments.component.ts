@@ -9,6 +9,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { AlertComponent } from '../../components/alert/alert.component';
 
 export interface IAppointment {
   id: number;
@@ -31,6 +32,7 @@ export interface IAppointment {
     ModalComponent,
     AppointmentFormComponent,
     NgxPaginationModule,
+    AlertComponent
   ],
   templateUrl: './appointments.component.html',
   styleUrl: './appointments.component.css',
@@ -77,7 +79,7 @@ export class AppointmentsComponent {
 
   displayModal = false;
 
-  errorMessage = '';
+  errorMessage = [];
   successMessage = '';
 
   currentPage: number = 1; //ngx pagination
@@ -112,7 +114,7 @@ export class AppointmentsComponent {
         this.filteredAppointments = data;
       },
       error: (error) => {
-        this.errorMessage = 'Error fetching appointments';
+        this.errorMessage = ['Error fetching appointments'];
         console.error('Error fetching appointments', error);
       },
     });
@@ -267,23 +269,18 @@ export class AppointmentsComponent {
     this.displayModal = false;
     if (msg) {
       this.successMessage = msg;
-      setTimeout(() => {
-        this.successMessage = undefined;
-      }, 3000);
     }
   }
 
   async deleteAppointment(id: number) {
+    console.log('ID TO DELETE: ', id);
     try {
       if (window.confirm('Do you want to remove this Appointment?')) {
         await this.appointmentService.deleteAppointment(id);
       } else return;
       this.successMessage = 'Appointment deleted successfully';
-      setTimeout(() => {
-        this.successMessage = undefined;
-      }, 3000);
     } catch (error) {
-      this.errorMessage = 'Error deleting appointment';
+      this.errorMessage = ['Error deleting appointment'];
       console.error('Error deleting appointment', error);
     }
   }
@@ -360,4 +357,9 @@ export class AppointmentsComponent {
   addAppointment(): void {
     // this.router.navigate([`/appointments/new`]);
   }
+
+  ngOnDestroy() {
+    if(this.appointmentSub) this.appointmentSub.unsubscribe();
+  }
+  
 }

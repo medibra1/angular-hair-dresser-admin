@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,20 +34,13 @@ export class ApiService {
     return this.http.post<any>(environment.serverBaseUrl + url, data);
   }
 
-  put(url: string, data: any, formData = false) {
-    let headers = new HttpHeaders({
-      'Accept': 'application/json'
-    });
-
-    if (!formData) {
-      headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
-      data = new HttpParams({ fromObject: data });
-    } else {
-      // No need to set Content-Type header for FormData, browser does it automatically
+  put(url, data, formData = false) {
+    if(!formData) {
+      data = new HttpParams({
+        fromObject: data
+      });
     }
-
-    const options = { headers };
-    return this.http.put<any>(`${environment.serverBaseUrl}${url}`, data, options);
+    return this.http.put<any>(environment.serverBaseUrl + url, data);
   }
 
   // put(url: string, data: any, formData = false) {
@@ -62,18 +56,18 @@ export class ApiService {
   // }
 
   patch(url: string, data: any, formData = false) {
-    const options = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-      }),
-    };
     if(!formData) {
       data = new HttpParams({fromObject: data})
    }
     return this.http.patch<any>(environment.serverBaseUrl + url, data);
   }
 
-  delete(url: any) {
-    return this.http.delete<any>(environment.serverBaseUrl + url);
+  delete(url: any, data?: any) {
+    // const options = {
+    //   body: data, // envoie `data` dans le corps de la requête si défini
+    // };
+    // return this.http.delete<any>(environment.serverBaseUrl + url, options);
+    const params = data ? new HttpParams({ fromObject: data }) : undefined;
+    return this.http.delete<any>(environment.serverBaseUrl + url, { params });
   }
 }
