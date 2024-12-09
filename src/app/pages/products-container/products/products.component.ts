@@ -33,7 +33,6 @@ export class ProductsComponent {
   modalContent: string | string[];
   modalSize: 'sm' | 'md' | 'lg' = 'md';
 
-
   productForm: FormGroup;
 
   selectedFile: File | null = null;
@@ -381,4 +380,5 @@ export class ProductsComponent {
   ngOnDestroy() {
     if (this.productSub) this.productSub.unsubscribe();
   }
+  
 }

@@ -3,9 +3,8 @@ import { HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest } from '@angul
 import { Observable, throwError,BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
-import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
 
+import { environment } from '../../../environments/environment';
 
 export const TokenInterceptor = (request: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
     

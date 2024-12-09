@@ -12,6 +12,7 @@ import { UsersService } from '../../services/users/users.service';
 import {
   fileSizeValidator,
   fileTypeValidator,
+  numberValidator,
   passwordMatchingValidator,
 } from '../../services/global/custom-validators';
 
@@ -84,7 +85,8 @@ export class SignupFormComponent {
         phone: [
           '',
           [
-            Validators.pattern('^[0-9]*$'),
+            // Validators.pattern('^[0-9]*$'),
+            numberValidator(),
             Validators.minLength(9),
             Validators.maxLength(10),
           ],

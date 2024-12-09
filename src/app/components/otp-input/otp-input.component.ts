@@ -1,19 +1,14 @@
-import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
-  Input,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { NgOtpInputModule } from 'ng-otp-input';
-import { BehaviorSubject, interval, map, Subscription, takeWhile, timer } from 'rxjs';
-import { GlobalService } from '../../services/global/global.service';
 
 @Component({
   selector: 'app-otp-input',
   standalone: true,
-  imports: [CommonModule, NgOtpInputModule],
+  imports: [NgOtpInputModule],
   templateUrl: './otp-input.component.html',
   styleUrl: './otp-input.component.css',
 })

@@ -29,6 +29,8 @@ export class FormErrorMsgComponent {
         message: ' characters maximum',
       },
       { type: 'email', message: 'The email format is invalid.' },
+      // { type: 'pattern', message: "Enter only number." },
+      { type: 'invalidNumber', message: "Enter only number." },
       { type: 'invalidEmail', message: 'The email format is invalid.' },
       {
         type: 'invalidUrl',
@@ -55,7 +57,7 @@ export class FormErrorMsgComponent {
       },
     ];
   }
+
 }
 
-// fileSizeExceeded
-// invalidFileType
+

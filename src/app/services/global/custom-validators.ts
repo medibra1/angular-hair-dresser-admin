@@ -37,6 +37,18 @@ export function emailValidator(): ValidatorFn {
   };
 }
 
+export function numberValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const integerPattern = /^[0-9]*$/;
+    const value = control.value;
+    if (!value) {
+      return null; // Don't validate empty values to allow required validator to handle them
+    }
+    const valid = integerPattern.test(control.value);
+    return valid ? null : { invalidNumber: true };
+  };
+}
+
 export function priceValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const pricePattern = /^\d+(\.\d{1,2})?$/;

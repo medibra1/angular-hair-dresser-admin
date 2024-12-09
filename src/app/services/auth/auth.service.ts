@@ -98,7 +98,7 @@ export class AuthService {
    */
   // register(name: string, email: string, password: string): Observable<any> {
   //   return this.http
-  //     .post<any>(`${this.apiUrl}/user/register`, { name, email, password })
+  //     .post<any>(`${this.apiUrl}/admin/register`, { name, email, password })
   //     .pipe(
   //       tap((response) => {
   //         this.storeToken(response.token);

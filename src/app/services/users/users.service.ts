@@ -29,7 +29,7 @@ export class UsersService {
 
   async signup(data: FormData) {
     try {
-      const res = await lastValueFrom(this.api.post('user/register', data, true));
+      const res = await lastValueFrom(this.api.post('admin/register', data, true));
       let currentUsers = [];
       currentUsers.push(res.data);
       currentUsers = currentUsers.concat(this.usersSubject.value);
