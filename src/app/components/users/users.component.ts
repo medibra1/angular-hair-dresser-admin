@@ -107,7 +107,7 @@ export class UsersComponent {
   }
 
   async changeStatus(user: User, status: number) {
-    if (window.confirm('Do you want to change appointment status to: ' +this.getStatusName(status).title)) {
+    if (window.confirm('Do you want to change user ' + user.name + ' status to: ' +this.getStatusName(status).title)) {
       this.selectedUser = user;
       this.displayChangeStatusModal = true;
       this.selectedStatus = status;

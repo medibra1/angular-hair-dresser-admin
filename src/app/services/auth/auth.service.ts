@@ -40,7 +40,7 @@ export class AuthService {
       };
       const response = await lastValueFrom(this.api.post('user/login', data));
       console.log('User type: ', response.data.user.type);
-      if (response.data.user.type == 2 || response.data.user.type == 3) {
+      if (response.data.user.type == 2 || response.data.user.type == 3 || !response.data.user.type) {
         alert('You are not authorized');
         return;
       }
